@@ -1,12 +1,9 @@
 package service;
 
-import java.util.List;
-
-import entity.operator;
+import entity.user;
 
 public interface login_service {
 	
-
-	public List<operator> getByName(String txt);
+	public user login(user u);
 
 }

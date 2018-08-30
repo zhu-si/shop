@@ -34,7 +34,14 @@ public class type_serviceImpl implements type_service{
 
 	public void update(type t) {
 		tdao.update(t);
-		
+	}
+
+	public type getByName(String name) {
+		return tdao.getByName(name);
+	}
+
+	public List<type> getByParentid(Integer parentid) {
+		return tdao.getByParentid(parentid);
 	}
 
 	

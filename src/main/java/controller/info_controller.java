@@ -14,10 +14,18 @@ public class info_controller {
 	
 	@Autowired
 	product_service pservice;
+	@Autowired
+	type_service tservice;
 	
 	@RequestMapping("product_info")
 	public void index(int id,ModelMap m) {
 		m.put("plist",pservice.getById(id));
+	}
+	
+	@RequestMapping("product_type")
+	public void search(int id,ModelMap m) {
+		m.put("tlist",tservice.getById(id));
+		
 	}
 	
 }

@@ -9,12 +9,26 @@
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
 		<link rel="stylesheet" type="text/css" href="css/homepage.css"/>
 		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 		
 		<style type="text/css">
 			.header3 .header3-cont ul .l3{
 	        color: #D63A3B;
-}
+			}
 		</style>
+		<script type="text/javascript">
+			function mysearch() {
+				$.ajax({
+					url:"product_type",
+					type:"post",
+					data:$("#s").serialize(),
+					success:function(){
+						
+					}
+				});
+			}
+		</script>
+		
 	</head>
 	<body>
 		<div class="box">
@@ -22,12 +36,12 @@
 				<div class="header1">
 					<div class="header1-cont">
 						<div class="left">
-							欢迎您来到鲜生购,&nbsp;<span><a class="a2">徐晓良良良</a></span>
+							欢迎您来到鲜生购,&nbsp;<span><a class="a2">${sessionScope.name}</a></span>
 						</div>
 						<div class="right">
 							<ul>
 								<li>我的订单<em></em></li>
-								<li><a href="shopping.html">购物车<em></em></a></li>
+								<li><a href="shopcar?id=${sessionScope.id}">购物车<em></em></a></li>
 								<li>收藏夹<em></em></li>
 								<li><a href="The member center.html">会员中心<em></em></li></a>
 								<li>客户服务<em></em></li>
@@ -49,9 +63,11 @@
 						<a href="index.jsp"><img src="img/images/gengduo_03.png"/></a>  <!--172*62-->
 						<div class="sousuo">
 							<div class="sousuo-up">
-								<input type="text" name="" id="" value=""placeholder="泰国榴莲" />
+							<form action="product_type" id="s">
+								<input type="text" name="name"  placeholder="泰国榴莲" value="" />
 								<em></em>
-								<p>搜索</p>
+								<p onclick="mysearch();" >搜索</p>
+								</form>
 							</div>
 							<div class="sousuo-down">
 								<ul>
@@ -66,17 +82,14 @@
 									<li><a href="">牛肉</a></li>
 								</ul>
 								<div class="clear">
-									
 								</div>
 							</div>
-							
 						</div>
 						<div class="gouwuche">
-							<a href="shopping.html"><em></em></a><span>购物车</span>
+							<a href="shopcar?id=${sessionScope.id}"><em></em><span>购物车</span></a>
 						</div>
 					</div>
 					<div class="clear">
-						
 					</div>
 					
 				</div>
@@ -88,18 +101,19 @@
 								<dl>
 									<c:forEach items="${requestScope.tlist}" var="t">
 										<c:if test="${t.parentid==0}">
-											<dt style="font-size: 18px">${t.name}</dt>
+											<a style="font-size: 20px;color:white;" href="product_type?parentid=${t.id}">${t.name}</a>
 											<dd>
 										</c:if>
 										<c:forEach items="${requestScope.tlist}" var="tt">
 											
 											<c:if test="${tt.parentid==t.id}">
-												<a href="" style="font-size: 15px">${tt.name}</a>
+												<a href="product_type?id=${tt.id}" style="font-size: 15px">${tt.name}</a>
 											</c:if>
 											
 										</c:forEach>
 										<c:if test="${t.parentid==0}">
 											</dd>
+											<br>
 										</c:if>
 									</c:forEach>
 								</dl>
@@ -217,7 +231,7 @@
 		    		<a href="fruit.html"><img src="img/pp2.png"/></a>
 		    		
 		    		<c:forEach items="${requestScope.plist}" var="p" begin="5" end="7">
-		    		<a class="a2" href="info.jsp">
+		    		<a class="a2" href="product_info">
 		    			<em></em>
 		    			<p class="p1"><img src="${p.pic}" width="150" height="143"/></p>
 		    			<p class="p2">${p.fullname}</p>

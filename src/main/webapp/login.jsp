@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" type="text/css" href="css/footer.css" />
+<script type="text/javascript" src=""></script>
 <style type="text/css">
 body, p {
 	margin: 0;
@@ -173,15 +174,16 @@ input:focus, textarea:focus {
 
 		</div>
 		<div class="cont-zc">
-			<form action="login" method="post">
+			<form action="login_c/login" method="post">
 				<ul>
-					<li><label>用户名</label> <input class="one" type="text" name="email" placeholder="请输入登录邮箱" /> </li>
-					
-					<li><label>密码</label> <input class="four" type="password" name="password" placeholder="请设置登录密码" /> <span>长度为6~14个字符<br />支持数字，大小写字母和标点符号<br />不允许有空格
-					</span></li>
-					<li class="yz"><label>验证码</label> <input class="three"
-						type="text" name="code" placeholder="请输入验证码" />
-						<p></p></li>
+					<li><label>用户名</label> 
+					<input class="one" type="text" name="email" placeholder="请输入登录邮箱" /></li>					
+					<li><label>密码</label> 
+					<input class="four" type="password" name="password" placeholder="请设置登录密码" /> 
+					<span>长度为6~14个字符<br />支持数字，大小写字母和标点符号<br />不允许有空格</span></li>
+					<li class="yz" style="height: 48px"><label>验证码</label> 
+					<input class="three" type="text" name="code" placeholder="请输入验证码" style="width:200px;margin-right:10px"/>
+					<img src="rcode/img" onclick="changerimg(this);" style="height:45px;"></li>
 					<li><input class="five" type="checkbox" name="" id="" value="" />
 						<p class="yuedu">
 							阅读并接受<em class="xieyi">《鲜生购用户注册协议》</em>

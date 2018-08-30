@@ -17,4 +17,9 @@ public interface type_service {
 
 	public void update(type t);
 	
+	public type getByName(String name);
+
+	public List<type> getByParentid(Integer parentid);
+
+
 }

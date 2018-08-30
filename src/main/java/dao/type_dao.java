@@ -28,4 +28,11 @@ public interface type_dao {
 	
 	@Select(value = "select * from type where id=#{id}")
 	public type getById(int id);
+	
+	@Select(value = "select * from type where name like '%#{name}%'")
+	public type getByName(String name);
+	
+	@Select(value = "select * from type where parentid=#{parentid}")
+	public List<type> getByParentid(Integer parentid);
+	
 }
