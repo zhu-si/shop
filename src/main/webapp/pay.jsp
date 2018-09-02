@@ -78,7 +78,7 @@
     </div>
     <div class="settlementInfoBox">
         
-        <table class="table" style="width:1000px;height:150px;margin-left:200px">
+        <table class="table" style="width:1000px;height:150px;margin-left:350px">
         	<tr>
         		<td>确认订单信息</td>
             	<td class="firstTitle">商品信息</td>

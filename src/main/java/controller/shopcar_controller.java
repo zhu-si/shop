@@ -151,12 +151,12 @@ public class shopcar_controller {
 		}
 		
 		//¶©µ¥×´Ì¬±í
-		for (int i = 0; i < idd.size(); i++) {
-			int id = idd.get(i);
-			int product_id = carservice.getById(id).getProduct_id();
-			int count = carservice.getById(id).getCount();
-			double price = pservice.getById(product_id).getPrice();
-			double nowprice = pservice.getById(product_id).getNowprice();
+//		for (int i = 0; i < idd.size(); i++) {
+//			int id = idd.get(i);
+//			int product_id = carservice.getById(id).getProduct_id();
+//			int count = carservice.getById(id).getCount();
+//			double price = pservice.getById(product_id).getPrice();
+//			double nowprice = pservice.getById(product_id).getNowprice();
 			int orders_id = rservice.code(a).getId();
 			os.setOrders_id(orders_id);
 			os.setDate(df.format(new Date()));
@@ -165,9 +165,12 @@ public class shopcar_controller {
 			os.setNum(1);
 			os.setAmount(allamount);
 			os.setComments("11221111");
-		}
+//		}
 		rservice.addStatus(os);
-		carservice.delete();
+		for (int i = 0; i < idd.size(); i++) {
+			int id = idd.get(i);
+			carservice.delete(id);
+		}
 		
 	}
 }
