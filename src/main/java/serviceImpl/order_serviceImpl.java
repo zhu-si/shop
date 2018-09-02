@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dao.order_dao;
 import entity.orders;
 import entity.orders_details;
+import entity.orders_status;
 import service.order_service;
 @Service
 public class order_serviceImpl implements order_service{
@@ -43,6 +44,10 @@ public class order_serviceImpl implements order_service{
 
 	public void add(orders_details od) {
 		rdao.add(od);
+	}
+
+	public void addStatus(orders_status os) {
+		rdao.addStatus(os);
 	}
 	
 }

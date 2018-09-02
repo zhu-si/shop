@@ -4,6 +4,7 @@ import java.util.List;
 
 import entity.orders;
 import entity.orders_details;
+import entity.orders_status;
 
 public interface order_service {
 	
@@ -21,4 +22,5 @@ public interface order_service {
 	
 	public void add(orders_details od);
 	
+	public void addStatus(orders_status os);
 }

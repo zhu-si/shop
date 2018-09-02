@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import entity.orders;
 import entity.orders_details;
+import entity.orders_status;
 
 @Repository("order_dao")
 public interface order_dao {
@@ -33,5 +34,6 @@ public interface order_dao {
 	@Insert("insert into orders_details(orders_id,product_id,count,price,nowprice,comments) values(#{orders_id},#{product_id},#{count},#{price},#{nowprice},#{comments})")
 	public void add(orders_details od);
 	
-	
+	@Insert("insert into orders_status(orders_id,date,dest_status,info,num,amount,comments) values(#{orders_id},#{date},#{dest_status},#{info},#{num},#{amount},#{comments})")
+	public void addStatus(orders_status os);
 }

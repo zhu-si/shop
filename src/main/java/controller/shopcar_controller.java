@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.car;
 import entity.orders;
 import entity.orders_details;
+import entity.orders_status;
 import entity.user;
 import service.order_service;
 import service.product_service;
@@ -80,9 +81,10 @@ public class shopcar_controller {
 	
 	//购物车跳转支付
 	@RequestMapping("pay")
-	public void pay(String ids,ModelMap m,orders r,orders_details od,HttpSession session) {
+	public void pay(String ids,ModelMap m,orders r,orders_details od,orders_status os,HttpSession session) {
 		user u=(user) session.getAttribute("user");
 		
+		//生成时间和订单号
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String a=String.valueOf(new Date().getTime());
 		r.setDate(df.format(new Date()));
@@ -122,19 +124,18 @@ public class shopcar_controller {
 			r.setAmount(amount);
 			r.setNowamount(allamount);
 		}
-		
 		r.setAddress_id(1);
 		r.setUser_id(u.getId());
+		rservice.insert(r);    //订单表
 		
-		rservice.insert(r);
 		m.put("tel",tel);
 		m.put("email",email);
 		m.put("allamount", allamount);
 		m.put("paylist",list);
 		
+		//订单详情表
 		for (int i = 0; i < idd.size(); i++) {
 			int id = idd.get(i);
-			
 			int product_id = carservice.getById(id).getProduct_id();
 			int count = carservice.getById(id).getCount();
 			double price = pservice.getById(product_id).getPrice();
@@ -147,9 +148,26 @@ public class shopcar_controller {
 			od.setProduct_id(product_id);
 			od.setOrders_id(orders_id);
 			rservice.add(od);
-			System.out.println(od.getCount());
 		}
 		
+		//订单状态表
+		for (int i = 0; i < idd.size(); i++) {
+			int id = idd.get(i);
+			int product_id = carservice.getById(id).getProduct_id();
+			int count = carservice.getById(id).getCount();
+			double price = pservice.getById(product_id).getPrice();
+			double nowprice = pservice.getById(product_id).getNowprice();
+			int orders_id = rservice.code(a).getId();
+			os.setOrders_id(orders_id);
+			os.setDate(df.format(new Date()));
+			os.setDest_status(6);
+			os.setInfo("已发货");
+			os.setNum(1);
+			os.setAmount(allamount);
+			os.setComments("11221111");
+		}
+		rservice.addStatus(os);
+		carservice.delete();
 		
 	}
 }
