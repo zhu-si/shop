@@ -7,8 +7,9 @@ import searchInfo.SearchInfo;
 
 public interface product_service {
 	
-	public List<product> index(SearchInfo info);
+	public List<product> select(SearchInfo info);
 	
 	public product getById(int id);
 	
+	public List<product> getByType_id(int id);
 }

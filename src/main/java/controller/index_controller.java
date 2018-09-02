@@ -19,7 +19,7 @@ public class index_controller {
 	
 	@RequestMapping("index")
 	public void index(ModelMap m) {
-		m.put("plist",pservice.index(new SearchInfo("",false)));
+		m.put("plist",pservice.select(new SearchInfo("",false)));
 		m.put("tlist",tservice.def(new SearchInfo(",",false)));
 	}
 	

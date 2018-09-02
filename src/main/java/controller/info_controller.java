@@ -24,7 +24,7 @@ public class info_controller {
 	
 	@RequestMapping("product_type")
 	public void search(int id,ModelMap m) {
-		m.put("tlist",tservice.getById(id));
+		m.put("typelist",pservice.getByType_id(id));
 		
 	}
 	

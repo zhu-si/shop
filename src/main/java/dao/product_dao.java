@@ -11,9 +11,11 @@ import entity.product;
 public interface product_dao {
 	
 	@Select("select * from product ${where} ${limit}")
-	public List<product> index();
+	public List<product> select();
 	
 	@Select("select * from product where id=#{id}")
 	public product getById(int id);
 	
+	@Select("select * from product where type_id=#{id}")
+	public List<product> getByType_id(int id);
 }

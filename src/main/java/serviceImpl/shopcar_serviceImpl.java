@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.shopcar_dao;
+import entity.orders;
 import entity.shopcar;
 import service.shopcar_service;
 
@@ -35,5 +36,15 @@ public class shopcar_serviceImpl implements shopcar_service{
 		return cardao.getById(id);
 	}
 
+	public void countUp(int id, int count) {
+		cardao.countUp(id, count);
+		
+	}
+
+	public List<orders> payid(int id) {
+		return cardao.payid(id);
+	}
+	
+	
 	
 }

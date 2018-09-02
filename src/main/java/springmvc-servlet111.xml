@@ -18,13 +18,11 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	<context:component-scan base-package="dao"></context:component-scan>
 	<context:component-scan base-package="serviceImpl"></context:component-scan>
 	
-	<!-- junit测试 -->
+	<!-- 事务管理 --><!-- junit测试数据库事务管理 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
-	
-	
 	
 	<!-- 图片上传 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

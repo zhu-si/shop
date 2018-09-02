@@ -16,12 +16,16 @@ public class product_serviceImpl implements product_service{
 	@Autowired
 	product_dao pdao;
 	
-	public List<product> index(SearchInfo info) {
-		return pdao.index();
+	public List<product> select(SearchInfo info) {
+		return pdao.select();
 	}
 
 	public product getById(int id) {
 		return pdao.getById(id);
+	}
+
+	public List<product> getByType_id(int id) {
+		return pdao.getByType_id(id);
 	}
 
 }

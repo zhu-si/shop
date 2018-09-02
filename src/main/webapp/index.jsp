@@ -17,6 +17,13 @@
 			}
 		</style>
 		<script type="text/javascript">
+		
+		$(function(){
+			if(${requestScope.tlist==null}){
+				location.href="index";
+			  }
+
+		});
 			function mysearch() {
 				$.ajax({
 					url:"product_type",
@@ -40,7 +47,7 @@
 						</div>
 						<div class="right">
 							<ul>
-								<li>我的订单<em></em></li>
+								<li><a href="order.jsp">我的订单<em></em></a></li>
 								<li><a href="shopcar?id=${sessionScope.id}">购物车<em></em></a></li>
 								<li>收藏夹<em></em></li>
 								<li><a href="The member center.html">会员中心<em></em></li></a>
@@ -101,7 +108,7 @@
 								<dl>
 									<c:forEach items="${requestScope.tlist}" var="t">
 										<c:if test="${t.parentid==0}">
-											<a style="font-size: 20px;color:white;" href="product_type?parentid=${t.id}">${t.name}</a>
+											<a style="font-size: 20px;color:white;" href="">${t.name}</a>
 											<dd>
 										</c:if>
 										<c:forEach items="${requestScope.tlist}" var="tt">

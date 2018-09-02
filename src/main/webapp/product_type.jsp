@@ -21,7 +21,7 @@
 						<div class="right">
 							<ul>
 								<li>我的订单<em></em></li>
-								<li><a href="shopping.html">购物车<em></em></a></li>
+								<li><a href="shopcar?id=${sessionScope.id}">购物车<em></em></a></li>
 								<li>收藏夹<em></em></li>
 								<li><a href="The member center.html">会员中心<em></em></li></a>
 								<li>客户服务<em></em></li>
@@ -88,7 +88,7 @@
 		<div class="cont-xg">
 			<div class="fenlei">
 				<div class="bread">
-					首页&nbsp;<em class="em1"></em>&nbsp;<span>${requestScope.tlist.name}&nbsp;<em></em>&nbsp;</span>
+					首页&nbsp;<em class="em1"></em>&nbsp;<span>水果&nbsp;<em></em>&nbsp;</span>
 				</div>
 				<div class="title-sg">
 					水果<span class="span1">商品删选</span><span class="span2">共156328件商品</span>
@@ -129,46 +129,19 @@
 			   </script>
 			   <!--商品图片-->
 			   <ul>
+			   <c:forEach items="${requestScope.typelist}" var="ptype">
 			   	<li>
-			   		<img src="img/pghj.png"/>
+		    		<a class="a2" href="product_info?id=${ptype.id}">
+			   		<img src="${ptype.pic}" width="150" height="135"/>
 			   		<div class="wenzi">
-			   			<p class="p1">珍享<span>泰国进口金枕头榴莲</span></p>
-				   		<p class="p2">￥36.8</p>
-				   		<p class="p3">已售<span>1563</span>件</p>
+			   			<p class="p1">${ptype.fullname}</p>
+				   		<p class="p2">￥${ptype.nowprice}</p>
+				   		<p class="p3">已售<span>${ptype.salecount}</span>件</p>
 			   		</div>
+			   		</a>
 			   	</li>
-			   	<li>
-			   		<img src="img/pbjhj.png"/>
-			   		<div class="wenzi">
-			   			<p class="p1">珍享<span>泰国进口金枕头榴莲</span></p>
-				   		<p class="p2">￥36.8</p>
-				   		<p class="p3">已售<span>1563</span>件</p>
-			   		</div>
-			   	</li>
-			   	<li>
-			   		<img src="img/pdgfjh.png"/>
-			   		<div class="wenzi">
-			   			<p class="p1">珍享<span>泰国进口金枕头榴莲</span></p>
-				   		<p class="p2">￥36.8</p>
-				   		<p class="p3">已售<span>1563</span>件</p>
-			   		</div>
-			   	</li>
-			   	<li>
-			   		<img src="img/pgdfj.png"/>
-			   		<div class="wenzi">
-			   			<p class="p1">珍享<span>泰国进口金枕头榴莲</span></p>
-				   		<p class="p2">￥36.8</p>
-				   		<p class="p3">已售<span>1563</span>件</p>
-			   		</div>
-			   	</li>
-			   	<li>
-			   		<img src="img/psdab.png"/>
-			   		<div class="wenzi">
-			   			<p class="p1">珍享<span>泰国进口金枕头榴莲</span></p>
-				   		<p class="p2">￥36.8</p>
-				   		<p class="p3">已售<span>1563</span>件</p>
-			   		</div>
-			   	</li>
+			   	</c:forEach>
+			   	
 			   </ul>
 			   <!--第二行-->
 			   <ul>

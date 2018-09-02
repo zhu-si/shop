@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -23,23 +22,76 @@ td {
 	text-align:;
 }
 </style>
+
 <script type="text/javascript">
-	function MYsubmit() {
+
+/*
+function refresh(){ 
+	alert(111);
+	}
+window.refresh();
+*/
+
+function countchange(id,count){
+	
+        var data={
+        		id:id,
+        		count:count,
+        }
+        $.ajax({
+			type : "POST",
+			url : "countUp",
+			/* contentType : "application/json; charset=utf-8", */
+			data : data,
+			dataType : "text",
+			success : function(result) {
+			//	alert(result);
+			}
+		});
+        
+       
+	
+};
+
+function pay(id) {
+	if(confirm("确认购买？")){
+		var ids=[];
+		$(".chk").each(function(){
+			if( $(this).prop("checked")){
+				ids.push($(this).attr("uid"));
+			}
+		});
+		
+		if(ids.length==0){
+			alert("请先选择商品...");
+			return ;
+		}
+		console.log();
+		ids = ids+"";
+		location.href="pay?ids="+ids;
+	}
+}
+
+	/* function MYsubmit() {
 		var data = [];
 		$(".down1").each(function() {
 			if ($(this).find(".chk").prop('checked')) { //判断选中状态
-				var id = $(this).attr("myid");
-				var count = $(this).find(".n2").text();
+				var id = parseInt($(this).attr("id"));
+				var count = parseInt($(this).find(".n2").text());
+				var product_id = parseInt($(this).attr("myid"));
+				var user_id = parseInt($(".user_id").attr("id"));
 				var row = {
 					id : id,
-					count : count
+					count : count,
+					product_id : product_id,
+					user_id : user_id
 				};
 				data.push(row);
 			}
 		});
 
 		//提交
-		$.ajax({
+		 $.ajax({
 			type : "POST",
 			url : "aaaa",
 			contentType : "application/json; charset=utf-8",
@@ -49,8 +101,8 @@ td {
 				if (json.status > 0) {
 				}
 			}
-		});
-	}
+		}); 
+	} */
 
 	//计算数量，金额
 	function alljs() {
@@ -63,7 +115,6 @@ td {
 				var count = parseInt(parent.find(".n2").text());
 				amount = parseFloat(amount.substr(1));
 				all += amount;
-				alert(all);
 				finalcount += count;
 			}
 		});
@@ -88,10 +139,11 @@ td {
 			if (count > 1)
 				$(event.target).next().text("" + (--count));
 			var parent = $(event.target).parents(".down1");
-			var id = parent.attr("myid");
+			var id = parent.attr("id");
 			var price = parent.find(".l5").text();
 			price = parseFloat(price.substring(1));
 			parent.find(".l7").text("￥" + (count * price).toFixed(2));
+			countchange(id,count);
 			alljs();
 		});
 		//点击数量减少
@@ -99,10 +151,11 @@ td {
 			var count = parseInt($(event.target).prev().text());
 			var parent = $(event.target).parents(".down1");
 			$(event.target).prev().text("" + (++count));
-			var id = parent.attr("myid");
+			var id = parent.attr("id");
 			var price = parent.find(".l5").text();
 			price = parseFloat(price.substring(1));
 			parent.find(".l7").text("￥" + (count * price).toFixed(2));
+			countchange(id,count);
 			alljs();
 		});
 	});
@@ -122,14 +175,14 @@ td {
 </script>
 
 </head>
-<body>
+<body onload="alljs()">
 	<div class="box" style="font-size: 20px">
 		<!--头部-->
 		<div class="header">
 			<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a href="">${sessionScope.name}</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a href="" class="user_id" id="${sessionScope.id}" >${sessionScope.name}</a></span>
 					</div>
 					<div class="right">
 						<ul>
@@ -202,16 +255,18 @@ td {
 					<td style="margin-left: 120px">操作</td>
 				</tr>
 				<c:forEach items="${requestScope.carlist}" var="car">
-					<tr class="down1" myid="1212">
-						<td class="l1"><input type="checkbox" class="chk"
+					<tr class="down1" id="${car.id}" myid="${car.product_id}">
+						<td class="l1"><input type="checkbox" class="chk" uid="${car.id}"
 							style="vertical-align: middle; margin-top: -70px" /><img
 							style="width: 90px; height: 90px;" src="${car.pic}" /></td>
 						<td class="l3"><p>${car.fullname}</p></td>
 						<td class="l4">260g*盒</td>
 						<td class="l5">￥${car.nowprice}</td>
-						<td class="l6" style="cursor: pointer;"><span class="n1">-&nbsp;&nbsp;</span><span
-							class="n2">&nbsp;1&nbsp;</span><span class="n3">&nbsp;&nbsp;+</span></td>
-						<td class="l7">￥${car.nowprice}</td>
+						<td class="l6" style="cursor: pointer;">
+							<span class="n1">-&nbsp;&nbsp;</span>
+							<span class="n2">&nbsp;${car.count}&nbsp;</span>
+							<span class="n3">&nbsp;&nbsp;+</span></td>
+						<td class="l7">￥${car.nowprice*car.count}</td>
 						<td class="l8"><p>移入收藏夹</p>
 							<p class="del" style="cursor: pointer;">
 								<a href="delete?id=${car.id}">删除</a>
@@ -226,9 +281,9 @@ td {
 					style="margin-left: 250px; font-size: 20px">已选中商品</span> <span
 					class="s4" style="font-size: 20px">0</span><span class="s5"
 					style="font-size: 20px">件</span><span class="s6"
-					style="font-size: 20px">总价(元)：</span><span class="s7"
+					style="font-size: 20px;margin-left:30px">总价(元)：</span><span class="s7"
 					style="font-size: 20px">￥0.00</span><span class="s8"
-					onclick="MYsubmit()" style="font-size: 20px">结算</span>
+					onclick="pay()" style="font-size:20px;cursor: pointer;">结算</span>
 			</div>
 		</div>
 
