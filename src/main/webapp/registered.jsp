@@ -8,6 +8,7 @@
 <title></title>
 <link rel="stylesheet" type="text/css" href="css/footer.css" />
 <script type="text/javascript" src=""></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 body, p {
 	margin: 0;
@@ -69,7 +70,7 @@ input:focus, textarea:focus {
 
 .cont-zc {
 	width: 1200px;
-	height: 500px;
+	height: 550px;
 	background: #FFFFFF;
 	border-top: 3px solid #D63A3B;
 	margin: 0 auto;
@@ -154,13 +155,18 @@ input:focus, textarea:focus {
 }
 </style>
 <script type="text/javascript">
-	if (window.top !== window.self) {
-		window.top.location = window.location;
-	}
-	var a = 0;
-	function changerimg(o) {
-		o.src = "rcode/img?a=" + (a++);
-	}
+	
+function registered() {
+ 	  $.post("myregist",$(".registered").serialize(),function(json){
+ 			if(json.status==2){
+ 				alert(json.text);
+ 				location.href="login.jsp";
+			}else {
+				location.href="registered.jsp";
+ 				alert(json.text);
+			}
+ 		},"json");
+  }
 </script>
 
 </head>
@@ -170,23 +176,31 @@ input:focus, textarea:focus {
 			<div class="logo-zc">
 				<a href="index.html"><img src="img/images/logojgj_03.png" /></a>
 			</div>
-			<span class="welcome"> 欢迎登录 </span>
+			<span class="welcome"> 欢迎注册 </span>
 
 		</div>
 		<div class="cont-zc">
-			<form action="login_c/login" method="post">
+			<form class="registered" action="myregist" method="post">
 				<ul>
 					<li><label>用户名</label> 
 					<input class="one" type="text" name="email" placeholder="请输入登录邮箱" /></li>					
-					<li><label>密码</label> 
+					<li><label>输入<br>密码</label> 
 					<input class="four" type="password" name="password" placeholder="请设置登录密码" /> 
+					<span>长度为6~14个字符<br />支持数字，大小写字母和标点符号<br />不允许有空格</span></li>
+					<li><label>确认<br>密码</label> 
+					<input class="four" type="password" name="password1" placeholder="请设置登录密码" />
+					<li><label>电话</label> 
+					<input class="four" type="password" name="tel" placeholder="请设置登录密码" /> 
 					<span>长度为6~14个字符<br />支持数字，大小写字母和标点符号<br />不允许有空格</span></li>
 					<li class="yz" style="height: 48px"><label>验证码</label> 
 					<input class="three" type="text" name="code" placeholder="请输入验证码" style="width:200px;margin-right:10px"/>
 					<img src="rcode/img" onclick="changerimg(this);" style="height:45px;"></li>
+					<li><input class="five" type="checkbox" name="" id="" value="" />
+						<p class="yuedu">
+							阅读并接受<em class="xieyi">《鲜生购用户注册协议》</em>
+						</p></li>
+					<li><button class="six" type="button" onclick="registered();">注册</button></li>
 					
-					<li><a><input class="six" type="submit" value="点击登录" /></a></li>
-					<li><a href="registered.jsp"><input class="six" value="免费注册" style="text-align:center;"/></a></li>
 				</ul>
 			</form>
 		</div>

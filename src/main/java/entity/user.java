@@ -5,11 +5,20 @@ public class user {
 	int id;
 	String email;
 	String password;
+	String password1;
 	String tel;
-	int level;
-	double amount;
-	int status;
-	String comments;
+	int level=1;
+	double amount=0;
+	int status=0;
+	String comments="";
+	
+	
+	public String getPassword1() {
+		return password1;
+	}
+	public void setPassword1(String password1) {
+		this.password1 = password1;
+	}
 	public int getId() {
 		return id;
 	}

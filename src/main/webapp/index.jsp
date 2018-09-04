@@ -49,8 +49,8 @@
 							<ul>
 								<li><a href="order.jsp">我的订单<em></em></a></li>
 								<li><a href="shopcar?id=${sessionScope.id}">购物车<em></em></a></li>
-								<li>收藏夹<em></em></li>
-								<li><a href="The member center.html">会员中心<em></em></li></a>
+								<li><a href="login.jsp">登录|注册<em></em></a></li>
+								<li><a href="The member center.html">会员中心<em></em></a></li>
 								<li>客户服务<em></em></li>
 							</ul>
 							<div class="clear">

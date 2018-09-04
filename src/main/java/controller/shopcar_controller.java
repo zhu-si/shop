@@ -19,6 +19,7 @@ import entity.orders;
 import entity.orders_details;
 import entity.orders_status;
 import entity.user;
+import service.address_service;
 import service.order_service;
 import service.product_service;
 import service.shopcar_service;
@@ -33,6 +34,8 @@ public class shopcar_controller {
 	product_service pservice;
 	@Autowired
 	shopcar_service carservice;
+	@Autowired
+	address_service addservice;
 
 	//
 	@RequestMapping("aaaa")
@@ -112,7 +115,6 @@ public class shopcar_controller {
 			double nowprice = pservice.getById(product_id).getNowprice();
 			double nowamount = (nowprice * count);
 			
-			
 			list.addAll(carservice.payid(id));
 			double nowprice1=list.get(i).getNowprice();
 			double price1=list.get(i).getPrice();
@@ -128,6 +130,7 @@ public class shopcar_controller {
 		r.setUser_id(u.getId());
 		rservice.insert(r);    //¶©µ¥±í
 		
+		m.put("address",addservice.getByUser_id(u.getId()));
 		m.put("tel",tel);
 		m.put("email",email);
 		m.put("allamount", allamount);

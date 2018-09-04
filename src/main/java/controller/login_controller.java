@@ -1,22 +1,24 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.user;
 import service.login_service;
+import utils.jsonInfo;
 
 @Controller
-@RequestMapping("login_c")
 public class login_controller {
 	
 	@Autowired
 	login_service lservice;
 	
-	@RequestMapping("login")
+	@RequestMapping("login_c/login")
 	public String login(user u,String code,HttpSession session) {
 		
 		if(session.getAttribute("randomCode").toString().equalsIgnoreCase(code)) {
@@ -35,6 +37,20 @@ public class login_controller {
 		}
 		return "redirect:/login.jsp";
 		
+	}
+	
+	@RequestMapping("myregist")
+	public @ResponseBody jsonInfo insert(user u) {
+		if(lservice.getEmail(u.getEmail()) == null) {
+			if(u.getPassword().equals(u.getPassword1())) {
+				lservice.insert(u);
+				return new jsonInfo(2, "注册成功！");
+			}else {
+				return new jsonInfo(1,"密码不一致！");
+			}
+		}else {
+			return new jsonInfo(0, "该用户已存在！");
+		}
 	}
 	
 	

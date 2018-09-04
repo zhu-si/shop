@@ -16,7 +16,12 @@
     
     </style>
     <script type="text/javascript">
+    
+    function openaddress(){
     	
+    	
+    }
+    
     
     function settlement() {
     	
@@ -57,7 +62,7 @@
     <div class="logoCon">
         <div class="logoCon">
             <img class="loginLogo" src="img/images/logojgj_03.png" style="width:250px"></img>
-            <p>确认订单</p>
+            
             <div class="logoRight">
                 <div class="searchBox">
                     <input type="text" value="请输入搜索内容"><button>搜索</button>
@@ -72,8 +77,10 @@
             <div><h2>确认收货地址</h2></div>
         </div>
         <div class="addressInfo">
-            <dl class="addressActive"><dt>鲍世英<b class="phoneNum">183****1165</b></dt><dd>山东省 青岛市 城阳区 城阳街道 春阳路 盈园国际商务中心 812</dd></dl>
-            <dl class="addAddress"><dt>添加新的收货地址</dt></dl>
+        <c:forEach items="${requestScope.address}" var="address">
+            <dl class="addressActive"><dt>${address.name}<b class="phoneNum">${address.tel}</b></dt><dd>${address.zone}${address.addr}</dd></dl>
+            <dl class="addAddress"><a onclick="openaddress();">添加新的收货地址</a></dl>
+        </c:forEach>    
         </div>
     </div>
     <div class="settlementInfoBox">
