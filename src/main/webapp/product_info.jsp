@@ -1,20 +1,11 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"
-	isELIgnored="false"%>
+﻿<%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
-<link rel="stylesheet" type="text/css" href="css/header.css" />
-<link rel="stylesheet" type="text/css" href="css/Detail page.css" />
-<link rel="stylesheet" type="text/css" href="css/base.css" />
-<link rel="stylesheet" type="text/css" href="css/footer.css" />
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-
 <script type="text/javascript">
-	
-	
 	function shopping(){
 		/* var data=[]; */
 			var user_id=1;
@@ -61,65 +52,8 @@
 <body>
 	<div class="box">
 		<div class="header">
-			<div class="header1">
-				<div class="header1-cont">
-					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<a href="">请登录</a>&nbsp;<span><a href="">免费注册</a></span>
-					</div>
-					<div class="right">
-						<ul>
-							<li>我的订单<em></em></li>
-							<li><a href="shopping.html">购物车<em></em></a></li>
-							<li>收藏夹<em></em></li>
-							<li><a href="The member center.html">会员中心<em></em></li>
-							</a>
-							<li>客户服务<em></em></li>
-						</ul>
-						<div class="clear"></div>
-
-					</div>
-
-				</div>
-				<div class="clear"></div>
-
-			</div>
-			<div class="header2">
-				<div class="header2-cont">
-					<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
-					<!--172*62-->
-					<div class="sousuo">
-						<div class="sousuo-up">
-							<input type="text" name="" id="" value="" placeholder="泰国榴莲" />
-							<em></em>
-							<p>搜索</p>
-						</div>
-						<div class="sousuo-down">
-							<ul>
-								<li><a class="red" href="">热门：</a></li>
-								<li><a class="red" href="">牛油果</a></li>
-								<li><a href="">草莓</a></li>
-								<li><a a class="red" href="">草莓</a></li>
-								<li><a href="">三文鱼</a></li>
-								<li><a a class="red" href="">有机菠菜</a></li>
-								<li><a href="">蓝莓</a></li>
-								<li><a class="red" href="">百香果</a></li>
-								<li><a href="">牛肉</a></li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-
-					</div>
-					<div class="gouwuche">
-						<a href="shopping.html"><em></em></a><span>购物车</span>
-					</div>
-				</div>
-				<div class="clear"></div>
-
-			</div>
-
-		</div>
 		<div class="cont">
-			<div class="banner">
+			<div class="banner" style="height:120px">
 				<img src="img/sha.png" />
 			</div>
 			<div class="buy">
@@ -358,71 +292,7 @@
 			<!--商品详情右下部分-->
 			<div class="box22 fl">
 				<div class="title-thing">
-					<ul>
-						<li class="l1">商品详情</li>
-						<li class="l2">包装及产品参数</li>
-						<li class="l2">累计评价<span>(199)</span></li>
-						<li class="l2">咨询<span>(10)</span></li>
-						<li class="l2">售后服务</li>
-					</ul>
-					<div class="clear"></div>
-				</div>
-				<div class="form">
-					<div class="form1">产品参数</div>
-					<div class="form2">
-						<ul>
-							<li><p>品&nbsp;牌：珍享</p>
-								<p>类&nbsp;别：热带水果类</p>
-								<p>包&nbsp;装：其他</p></li>
-							<li><p>国产/进口：越南进口</p>
-								<p>储存方法：冷藏/常温</p></li>
-							<li><p>规&nbsp;格：2kg*1&nbsp;2.5kg*1&nbsp;3kg*1</p></li>
-							<li><p>保质期： 30天</p></li>
-
-						</ul>
-
-					</div>
-
-				</div>
-				<div class="content-one">
-					<div class="titleone">
-						<span class="span1"></span><span class="span2">珍享榴莲，与你</span><span
-							class="span3">浪漫邂逅</span>
-					</div>
-					<div class="tuwen">
-						<div class="wen fl">
-							<dt>金枕头榴莲</dt>
-							<dd>初尝有异味，续食清凉甜蜜，回味甚佳。</dd>
-							<dd>很多人都因为榴莲异常的香味”望而却步“，</dd>
-							<dd>但是，也有许多人自从吃了第一口以后，</dd>
-							<dd>就被榴莲那种特殊的回味和质感所吸引，</dd>
-							<dd>其中还会在一部分人中产生“流连忘返”的感觉。</dd>
-							<dd>榴莲果肉中含有多种维生素，营养丰富，口感绵密。</dd>
-
-						</div>
-						<div class="tu fl">
-							<img src="img/liulian.png" />
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="bigtu">
-						<img src="img/images/liulian2_09.png" />
-					</div>
-
-				</div>
-				<div class="content-two">
-					<div class="titletwo">
-						<span class="span1"></span><span class="span2">珍享榴莲，与你</span><span
-							class="span3">泰国大自然的问候</span>
-					</div>
-
-				</div>
-				<img src="img/images/hksfhksaf_03.png" />
-				<!--<img src="img/images/hgfaj_03.png"/>-->
-				<img src="img/images/ahk_03.png" />
-			</div>
-		</div>
-		<div class="clear"></div>
+					${requestScope.plist.info}</div>
 		<footer>
 			<!--<div class="up">
 			<ul class="cont">

@@ -20,12 +20,12 @@ public interface order_dao {
 	//购物车生成订单
 	@Insert("insert into orders(date,code,amount,nowamount,address_id,user_id,status,comments) values(#{date},#{code},#{amount},#{nowamount},#{address_id},#{user_id},#{status},#{comments})")
 	public void insert(orders r);
-
-	@Delete("delete from orders where id=#{id}")
-	public void deleteall(int id);
 	
-	@Delete("delete from orders where id=#{id}")
-	public void delete(int id);
+	@Select("select * from orders where user_id=#{id}")
+	public List<orders> getId(int id);
+	
+	@Select("select d.orders_id,p.fullname,p.pics,d.nowprice,d.count from product p inner join orders_details d on d.product_id=p.id")
+	public List<orders> getById();
 	
 	//根据订单号查询订单id生成订单详情
 	@Select("select * from orders where code=#{code}")

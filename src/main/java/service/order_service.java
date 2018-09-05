@@ -11,12 +11,10 @@ public interface order_service {
 	public List<orders> def();
 
 	public void insert(orders r);
+	
+	public List<orders> getId(int id);
 
-	public void delete(int id);
-
-	public void deleteall(int id);
-
-	public Object getId(int id);
+	public List<orders> getById();
 
 	public orders code(String code);
 	

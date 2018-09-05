@@ -7,6 +7,7 @@ public class orders {
 	String code;
 	int address_id;
 	int user_id;
+	int orders_id;
 	double price;
 	int count;
 	double nowprice;
@@ -23,6 +24,12 @@ public class orders {
 	double nowamount;
 	
 	
+	public int getOrders_id() {
+		return orders_id;
+	}
+	public void setOrders_id(int orders_id) {
+		this.orders_id = orders_id;
+	}
 	public double getAmount() {
 		return amount;
 	}

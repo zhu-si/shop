@@ -39,23 +39,24 @@
         <p>操作</p>
     </div>
 	<!-----01------>
+	<c:forEach items="${requestScope.orlist}" var="r">
     <div class="title02">
-    	<span>订单编号：283849398475</span>
-        <h1>成交时间：2016-10-27</h1>
-        <a href="product.html"><h2>店铺：Drowlin</h2></a>  
-        <a href="#"><h3>联系商家</h3></a>
+    	<span>订单编号：${r.code}</span>
+        <h1>成交时间：${r.date}</h1>
     </div>
+    
+    <c:forEach items="${requestScope.olist}" var="ord">
+    <c:if test="${ord.orders_id == r.id}">
     <div class="pic01">
-    	<img src="images/images81.jpg" alt="这是一张图片">
+    	<img src="${ord.pic}" alt="这是一张图片">
         <div class="box01">
-        	<a href="product.html">欧美范秋冬新款侧拉链厚底粗跟高跟短靴</a>
-			<p>颜色：黑色 尺码：S</p>
+        	<a href="product.html">${ord.fullname}</a>
+			
         </div>
-        <span>￥249.00</span>
-        <p>1</p>
+        <span>￥${ord.nowprice}</span>
+        <p>${ord.count}</p>
         <div class="box02">
-        	<h1>￥249.00</h1>
-            <p>包邮</p>
+        	<h1>￥${ord.nowprice*ord.count}</h1>
         </div>
         <div class="box03">
         	<p>已发货</p>
@@ -64,6 +65,10 @@
         </div>
 		<input class="shouhuo" name="确认收货" type="button" value="确认收货">  
     </div>
+    
+     </c:if>
+    	</c:forEach>
+    </c:forEach>
     <!-----02------>
 	<div class="title03">
     		<span>订单编号：234566774322</span>

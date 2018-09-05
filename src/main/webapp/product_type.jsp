@@ -1,73 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="header.jsp"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
-		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/fruit.css"/>
-		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
 	</head>
 	<body>
 		<div class="box">
 			<div class="header">
-				<div class="header1">
-					<div class="header1-cont">
-						<div class="left">
-							欢迎您来到鲜生购,&nbsp;<span><a href="">${sessionScope.name}</a></span>
-						</div>
-						<div class="right">
-							<ul>
-								<li>我的订单<em></em></li>
-								<li><a href="shopcar?id=${sessionScope.id}">购物车<em></em></a></li>
-								<li>收藏夹<em></em></li>
-								<li><a href="The member center.html">会员中心<em></em></li></a>
-								<li>客户服务<em></em></li>
-							</ul>
-							<div class="clear">
-								
-							</div>
-							
-						</div>
-						
-					</div>
-					<div class="clear">
-						
-					</div>
-					
-				</div>
-				<div class="header2">
-					<div class="header2-cont">
-					<a href="index.html"><img src="img/images/gengduo_03.png"/></a>  <!--172*62-->
-						<div class="sousuo">
-							<div class="sousuo-up">
-								<input type="text" name="" id="" value=""placeholder="泰国榴莲" />
-								<em></em>
-								<p>搜索</p>
-							</div>
-							<div class="sousuo-down">
-								<ul>
-									<li><a class="red" href="">热门：</a></li>
-									<li><a class="red" href="">牛油果</a></li>
-									<li><a href="">草莓</a></li>
-									<li><a a class="red" href="">草莓</a></li>
-									<li><a href="">三文鱼</a></li>
-									<li><a a class="red" href="">有机菠菜</a></li>
-									<li><a href="">蓝莓</a></li>
-									<li><a class="red" href="">百香果</a></li>
-									<li><a href="">牛肉</a></li>
-								</ul>
-								<div class="clear"></div>
-							</div>
-						</div>
-						<div class="gouwuche">
-							<a href="shopping.html"><em></em></a><span>购物车</span>
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>
+				
 				<div class="header3">
 					<div class="header3-cont">
 						<ul>
@@ -87,15 +29,13 @@
 		  <!--分类-->
 		<div class="cont-xg">
 			<div class="fenlei">
-				<div class="bread">
-					首页&nbsp;<em class="em1"></em>&nbsp;<span>水果&nbsp;<em></em>&nbsp;</span>
-				</div>
+				
 				<div class="title-sg">
-					水果<span class="span1">商品删选</span><span class="span2">共156328件商品</span>
+					<span class="span1">商品删选</span><span class="span2"></span>
 				</div>
 				<div class="d1">
 					<span class="s1">分类：</span><span class="s2">苹果</span><span class="s2">橙子</span><span class="s2">桃子</span><span class="s2">菠萝</span><span class="s2">哈密瓜</span><span class="s2">火龙果</span>
-					<span class="s2">西瓜</span><span class="s2">柠檬</span><span class="s2">牛油果</span><span class="s2">菠萝</span><span class="s2">蓝莓</span><span class="s2">樱桃</span><span class="s2">榴莲</span><span class="s2">更多</span>
+					<span class="s2">西瓜</span><span class="s2">柠檬</span><span class="s2">牛油果</span><span class="s2">菠萝</span><span class="s2">榴莲</span><span class="s2">更多</span>
 				</div>
 				<div class="d1">
 					<span class="s1">品牌：</span><span class="s2">优得荟</span><span class="s2">天马吃荟</span><span class="s2">鲜果之家</span><span class="s2">珍享</span><span class="s2">佳惠</span><span class="s2">展沛</span><span class="s2">天天新鲜</span>

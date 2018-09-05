@@ -24,18 +24,13 @@ public class order_serviceImpl implements order_service{
 	public void insert(orders r) {
 		rdao.insert(r);
 	}
-
-	public void delete(int id) {
-		rdao.delete(id);
+	
+	public List<orders> getId(int id) {
+		return rdao.getId(id);
 	}
 
-	public void deleteall(int id) {
-		rdao.deleteall(id);
-	}
-
-	public Object getId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<orders> getById() {
+		return rdao.getById();
 	}
 
 	public orders code(String code) {
