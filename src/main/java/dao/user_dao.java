@@ -22,11 +22,14 @@ public interface user_dao {
 	@Update("update user set email=#{email},password=#{password},tel=#{tel},level=#{level},amount=#{amount},status=#{status},comments=#{comments} where id=#{id}")
 	public void update(user u);
 	
-	@Delete("delete from user where id=#{id}")
-	public void deleteall(int id);
+	@Update("update user set amount=#{amount} where id=#{id}")
+	public void updateamount(user us);
 	
-	@Delete("delete from user where id=#{id}")
-	public void delete(int id);
+//	@Delete("delete from user where id=#{id}")
+//	public void deleteall(int id);
+//	
+//	@Delete("delete from user where id=#{id}")
+//	public void delete(int id);
 	
 	@Select("select * from user where id = #{id}")  
 	public user getId(int id);

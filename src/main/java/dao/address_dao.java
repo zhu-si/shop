@@ -11,8 +11,8 @@ import entity.address;
 @Repository("address_dao")
 public interface address_dao {
 	
-	@Select("select * from address where user_id = #{user_id}")
-	public List<address> getByUser_id(int user_id);
+	@Select("select * from address where user_id = #{id}")
+	public List<address> getByUser_id(int id);
 	
 	@Insert("insert into address(user_id,zone,addr,name,tel,status) value(#{user_id},#{zone},#{addr},#{name},#{tel},#{status})")
 	public void insert(address add);

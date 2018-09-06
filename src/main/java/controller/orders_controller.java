@@ -21,7 +21,6 @@ public class orders_controller {
 		List<orders> list = rservice.getId(id);
 		m.put("orlist",list);
 		m.put("olist",rservice.getById());
-		
 		return "orders_details";
 	}
 	

@@ -29,18 +29,24 @@ public class user_serviceImpl implements user_service{
 		
 	}
 
-	public void delete(int id) {
-		udao.delete(id);
-		
+//	public void delete(int id) {
+//		udao.delete(id);
+//		
+//	}
+//
+//	public void deleteall(int id) {
+//		udao.deleteall(id);
+//		
+//	}
+
+
+	public user getId(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void deleteall(int id) {
-		udao.deleteall(id);
-		
-	}
-
-	public Object getId(int id) {
-		return udao.getId(id);
+	public void updateamount(user us) {
+		udao.updateamount(us);
 	}
 
 }

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import entity.orders;
 import entity.shopcar;
+import searchInfo.SearchInfo;
 
 
 public interface shopcar_dao {
@@ -28,13 +29,20 @@ public interface shopcar_dao {
 	@Update("update shopcar set count=#{count} where id=#{id}")
 	public void countUp(@Param("id") int id,@Param("count")int count);
 	
-	@Delete("delete from shopcar where id=#{id}")
-	public void delete(int id);
+	@Delete("delete from shopcar where id in (${ids})")
+	public void deletes(@Param(value="ids")String ids);
 	
 	@Select(value = "select * from shopcar where id=#{id}")
 	public shopcar getById(int id);
 	
 	//结算查询
-	@Select(value = "select s.*,p.fullname,p.nowprice,p.pics,p.type_id,p.price,p.activity,u.tel,u.email from shopcar s INNER JOIN product p inner join user u on p.id=s.product_id and u.id=s.user_id where s.id=#{id}")
+	@Select("select s.*,p.fullname,p.nowprice,p.pics,p.type_id,p.price,p.activity,u.tel,u.email,t.name from shopcar s INNER JOIN product p inner join user u inner join type t on p.id=s.product_id and u.id=s.user_id and p.type_id=t.id where s.id=#{id}")
 	public List<orders> payid(int id);
+	
+	@Select("select s.*,sum(s.count*p.price) amount,sum(s.count*p.nowprice) nowamount from shopcar s INNER JOIN product p on s.product_id=p.id")
+	public List<orders> priceAll(SearchInfo info);
+	
+	//购物车点击结算跳转pay.jsp
+	@Select("select s.*,p.fullname,p.nowprice,p.pics,p.type_id,p.price,p.activity,t.name from shopcar s INNER JOIN product p inner join type t on p.id=s.product_id and p.type_id=t.id ${where}")
+	public List<shopcar> select(SearchInfo info);
 }

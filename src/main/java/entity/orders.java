@@ -18,12 +18,19 @@ public class orders {
 	String email;
 	String pics;
 	String fullname;
+	String name;
 	String activity;
 	String tel;
 	double amount;
 	double nowamount;
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getOrders_id() {
 		return orders_id;
 	}

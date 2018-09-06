@@ -7,20 +7,14 @@
 		<title>ZHU SHOP</title>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
 		<link rel="stylesheet" type="text/css" href="css/homepage.css"/>
-		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
-		<link rel="stylesheet" type="text/css" href="css/header.css" />
 		<link rel="stylesheet" type="text/css" href="css/Detail page.css" />
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 		<link rel="stylesheet" type="text/css" href="css/footer.css" />
 		<link rel="stylesheet" type="text/css" href="css/fruit.css"/>
-
+		<link rel="stylesheet" type="text/css" href="css/shopping.css" />
 		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-		
 		<script type="text/javascript">
-		
-		
 		
 		function mysearch() {
 			$.ajax({
@@ -31,6 +25,13 @@
 					
 				}
 			});
+		}
+		function login(id){
+			if(${sessionScope.user != null}){
+				alert("您已登录！");
+			}else{
+				location.href="login.jsp"
+			}
 		}
 		
 		function shopcar(id){
@@ -64,9 +65,9 @@
 						<ul>
 							<li><a onclick="orders(${sessionScope.id})">我的订单<em></em></a></li>
 							<li><a onclick="shopcar(${sessionScope.id})">购物车<em></em></a></li>
-							<li><a href="login.jsp">登录|注册<em></em></a></li>
-							<li><a href="The member center.html">会员中心<em></em></a></li>
-							<li>客户服务<em></em></li>
+							<li><a onclick="login(${sessionScope.id})">登录|注册<em></em></a></li>
+							<!-- <li><a href="The member center.html">会员中心<em></em></a></li> -->
+							<!-- <li>客户服务<em></em></li> -->
 						</ul>
 						<div class="clear"></div>
 
@@ -80,10 +81,10 @@
 				<div class="header2-cont">
 					<a href="index.jsp"><img src="img/images/gengduo_03.png" /></a>
 					<!--172*62-->
-					<div class="sousuo" style="margin-left:200px">
+					<div class="sousuo" style="margin-left:280px">
 						<div class="sousuo-up">
 							<form action="product_type" id="s">
-								<input type="text" name="name" placeholder="泰国榴莲" value="" style="width:505px"/> <em></em>
+								<input type="text" name="name" placeholder="泰国榴莲" value="" style="width:505px"/><em></em>
 								<p onclick="mysearch();">搜索</p>
 							</form>
 						</div>
@@ -103,7 +104,7 @@
 						</div>
 					</div>
 					<div class="gouwuche" style="margin-top:10px">
-						<a onclick="shopcar(${sessionScope.id})"><em></em><span style="font-size:20px;margin-top:5px">购物车</span></a>
+						<a onclick="shopcar(${sessionScope.id})"><em style=""></em></a>
 					</div>
 				</div>
 				<div class="clear"></div>

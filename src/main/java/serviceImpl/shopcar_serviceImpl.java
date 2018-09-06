@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.shopcar_dao;
 import entity.orders;
 import entity.shopcar;
+import searchInfo.SearchInfo;
 import service.shopcar_service;
 
 @Service
@@ -28,8 +29,8 @@ public class shopcar_serviceImpl implements shopcar_service{
 		cardao.update(car);
 	}
 
-	public void delete(int id) {
-		cardao.delete(id);
+	public void deletes(String ids) {
+		cardao.deletes(ids);
 	}
 
 	public shopcar getById(int id) {
@@ -43,6 +44,14 @@ public class shopcar_serviceImpl implements shopcar_service{
 
 	public List<orders> payid(int id) {
 		return cardao.payid(id);
+	}
+
+	public List<orders> priceAll(SearchInfo info) {
+		return cardao.priceAll(info);
+	}
+
+	public List<entity.shopcar> select(SearchInfo info) {
+		return cardao.select(info);
 	}
 	
 	

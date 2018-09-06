@@ -1,15 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@include file="header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
-
-<link rel="stylesheet" type="text/css" href="css/header.css" />
-<link rel="stylesheet" type="text/css" href="css/shopping.css" />
-<link rel="stylesheet" type="text/css" href="css/footer.css" />
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 table {
 	border-color: black;
@@ -33,7 +29,6 @@ window.refresh();
 */
 
 function countchange(id,count){
-	
         var data={
         		id:id,
         		count:count,
@@ -48,14 +43,13 @@ function countchange(id,count){
 			//	alert(result);
 			}
 		});
-        
-       
-	
 };
 
 function pay(id) {
 	if(confirm("确认购买？")){
 		var ids=[];
+		var allamount;
+		
 		$(".chk").each(function(){
 			if( $(this).prop("checked")){
 				ids.push($(this).attr("uid"));
@@ -68,41 +62,14 @@ function pay(id) {
 		}
 		console.log();
 		ids = ids+"";
-		location.href="pay?ids="+ids;
+		allamount = $(".s7").text();
+		allamount = parseFloat(allamount.substr(1));
+		location.href="pay?ids="+ids+"&allamount="+allamount;
 	}
+	
+	
+	
 }
-
-	/* function MYsubmit() {
-		var data = [];
-		$(".down1").each(function() {
-			if ($(this).find(".chk").prop('checked')) { //判断选中状态
-				var id = parseInt($(this).attr("id"));
-				var count = parseInt($(this).find(".n2").text());
-				var product_id = parseInt($(this).attr("myid"));
-				var user_id = parseInt($(".user_id").attr("id"));
-				var row = {
-					id : id,
-					count : count,
-					product_id : product_id,
-					user_id : user_id
-				};
-				data.push(row);
-			}
-		});
-
-		//提交
-		 $.ajax({
-			type : "POST",
-			url : "aaaa",
-			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
-			dataType : "json",
-			success : function(json) {
-				if (json.status > 0) {
-				}
-			}
-		}); 
-	} */
 
 	//计算数量，金额
 	function alljs() {
@@ -120,6 +87,7 @@ function pay(id) {
 		});
 		$(".s7").text("￥" + all.toFixed(2));
 		$(".s4").text("" + finalcount);
+		
 	}
 
 	//删除购物车商品
@@ -176,57 +144,10 @@ function pay(id) {
 
 </head>
 <body onload="alljs()">
-	<div class="box" style="font-size: 20px">
+	<div class="box" style="font-size:15px">
 		<!--头部-->
 		<div class="header">
-			<div class="header1">
-				<div class="header1-cont">
-					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a href="" class="user_id" id="${sessionScope.id}" >${sessionScope.name}</a></span>
-					</div>
-					<div class="right">
-						<ul>
-							<li>我的订单<em></em></li>
-							<li><a href="shopping.html">购物车<em></em></a></li>
-							<li>收藏夹<em></em></li>
-							<li><a href="The member center.html">会员中心<em></em></li>
-							</a>
-							<li>客户服务<em></em></li>
-						</ul>
-						<div class="clear"></div>
-					</div>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="header2">
-				<div class="header2-cont">
-					<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
-					<!--172*62-->
-					<div class="sousuo">
-						<div class="sousuo-up">
-							<input type="text" name="" id="" value="" placeholder="泰国榴莲" />
-							<em></em>
-							<p>搜索</p>
-						</div>
-						<div class="sousuo-down">
-							<ul>
-								<li><a class="red" href="">热门：</a></li>
-								<li><a class="red" href="">牛油果</a></li>
-								<li><a href="">草莓</a></li>
-								<li><a a class="red" href="">无花果</a></li>
-								<li><a href="">三文鱼</a></li>
-								<li><a a class="red" href="">有机菠菜</a></li>
-								<li><a href="">蓝莓</a></li>
-								<li><a class="red" href="">百香果</a></li>
-								<li><a href="">牛肉</a></li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-					</div>
-
-				</div>
-				<div class="clear"></div>
-			</div>
+			
 			<div class="header3">
 				<div class="header3-cont">
 					<ul>
@@ -263,27 +184,26 @@ function pay(id) {
 						<td class="l4">260g*盒</td>
 						<td class="l5">￥${car.nowprice}</td>
 						<td class="l6" style="cursor: pointer;">
-							<span class="n1">-&nbsp;&nbsp;</span>
-							<span class="n2">&nbsp;${car.count}&nbsp;</span>
-							<span class="n3">&nbsp;&nbsp;+</span></td>
-						<td class="l7">￥${car.nowprice*car.count}</td>
-						<td class="l8"><p>移入收藏夹</p>
+							<span class="n1">-</span>
+							<span class="n2">${car.count}</span>
+							<span class="n3">+</span></td>
+						<td class="l7">￥<fmt:formatNumber value="${(car.nowprice*car.count)}" pattern="#.##"/></td>
+						<td class="l8"><!-- <p>移入收藏夹</p> -->
 							<p class="del" style="cursor: pointer;">
 								<a href="delete?id=${car.id}">删除</a>
 							</p>
-							<p>查找相似</p></td>
+							<!-- <p>查找相似</p> --></td>
 				</c:forEach>
 				</tr>
 			</table>
 			<div class="all2" style="width: 1100px">
-				<input type="checkbox" class="selectall" />全选<span class="s2"
-					style="font-size: 20px">删除选中商品</span><span class="s3"
-					style="margin-left: 250px; font-size: 20px">已选中商品</span> <span
-					class="s4" style="font-size: 20px">0</span><span class="s5"
-					style="font-size: 20px">件</span><span class="s6"
-					style="font-size: 20px;margin-left:30px">总价(元)：</span><span class="s7"
-					style="font-size: 20px">￥0.00</span><span class="s8"
-					onclick="pay()" style="font-size:20px;cursor: pointer;">结算</span>
+				<input type="checkbox" class="selectall" />全选<span class="s2" style="font-size: 15px">删除选中商品</span>
+					<span class="s3" style="margin-left: 250px; font-size: 15px">已选中商品</span> 
+					<span class="s4" style="font-size: 15px">0</span>
+					<span class="s5" style="font-size: 15px">件</span>
+					<span class="s6" style="font-size: 15px;margin-left:30px">总价(元)：</span>
+					<span class="s7" style="font-size: 15px">￥0.00</span>
+					<span class="s8" onclick="pay()" style="font-size:15px;cursor: pointer;margin-left:100px">购买</span>
 			</div>
 		</div>
 

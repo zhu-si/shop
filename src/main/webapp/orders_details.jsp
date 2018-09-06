@@ -7,20 +7,55 @@
 <title>订单</title>
 <link rel="stylesheet" type="text/css" href="css/orders.css">
 <script src="js/jquery-3.3.1.min.js"></script>
-</head>
 
+<style type="text/css">
+
+button{
+background-color:red; 
+	border-radius:5px;
+	float:right;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+</style>
+
+<script type="text/javascript">
+function shopcar(id){
+	if(${sessionScope.user != null}){
+		location.href="shopcar?id="+id;
+	}else{
+		alert("请先登录！");
+		location.href="login.jsp"
+	}
+}
+
+function login(id){
+	if(${sessionScope.user != null}){
+		alert("您已登录！");
+	}else{
+		location.href="login.jsp"
+	}
+}
+</script>
+
+</head>
 <body>
 <!---head--------->
-	<div class="header">
-    	<div class="box">
+	<div class="header" style="font-size: 15px">
+    	<div class="box" style="30px">
         	<div class="title">
             	<img class="images01" src="img/images/logo01.jpg" alt="这是一张图片">
                 <a href="index"><div>鲜生购首页</div></a>
-                <a href="user.html"><p><span>${sessionScope.name}</span></p></a>
-                <a href="user.html"><p>积分13</p></a>
-                <a href="#"><p>消息</p></a>
-                <a href="#"><p>我的收藏</p></a>
-                <a href="orders.html"><p><img src="img/images/logo02.jpg">我的订单</p></a>
+                <a ><p><span style="float:left;">${sessionScope.name}</span></p></a>
+                <a onclick="shopcar(${sessionScope.id})"><p>购物车</p></a>
+                <a onclick="login(${sessionScope.id})"><p>登录|注册</p></a>
+                <a ><p><img src="img/images/logo02.jpg">我的订单</p></a>
                 <a href="shopping.html"><p><img src="img/images/logo03.jpg">购物车</p></a>
             </div>
         </div>
@@ -43,6 +78,7 @@
     <div class="title02">
     	<span>订单编号：${r.code}</span>
         <h1>成交时间：${r.date}</h1>
+        <button class="shouhuo" >确认收货</button>
     </div>
     
     <c:forEach items="${requestScope.olist}" var="ord">
@@ -63,91 +99,17 @@
             <a href="#"><h1>订单详情</h1></a>
             <a href="#"><h1>查看物流</h1></a>
         </div>
-		<input class="shouhuo" name="确认收货" type="button" value="确认收货">  
+		  
     </div>
     
      </c:if>
     	</c:forEach>
     </c:forEach>
-    <!-----02------>
-	<div class="title03">
-    		<span>订单编号：234566774322</span>
-        	<h1>成交时间：2016-10-03</h1>
-        	<a href="product.html"><h2>店铺：妖精的口袋</h2></a>  
-        	<a href="#"><h3>联系商家</h3></a>
-    </div>
-    <div class="pic02">
-    	<img src="images/images90.jpg" alt="这是一张图片">
-        <div class="box01">
-        	<a href="product.html">妖精的口袋百搭背带牛仔裤女九分裤</a>
-			<p>颜色：蓝色 尺码：M</p>
-        </div>
-        <span>￥249.00</span>
-        <p>1</p>
-        <div class="box02">
-        	<h1>￥269.00</h1>
-            <p>包邮</p>
-        </div>
-        <div class="box03">
-            <a href="#"><h1>订单详情</h1></a>
-            <a href="#"><h2>查看物流</h2></a>
-        </div>
-		<a href="#"><h1>删除订单</h1></a>
-    </div>
-    <!-----03------>
-    <div class="title04">
-    		<span>订单编号：234566774322</span>
-        	<h1>成交时间：2016-09-22</h1>
-        	<a href="product.html"><h2>店铺：潮男时尚</h2></a>  
-        	<a href="#"><h3>联系商家</h3></a>
-    </div>
-    <div class="pic03">
-    	<img src="images/images91.jpg" alt="这是一张图片">
-        <div class="box01">
-        	<a href="product.html">港仔男士新冬装羊羔毛翻领棉衣短款外套</a>
-			<p>颜色：灰色 尺码：L</p>
-        </div>
-        <span>￥329.00</span>
-        <p>1</p>
-        <div class="box02">
-        	<h1>￥329.00</h1>
-            <p>包邮</p>
-        </div>
-        <div class="box03">
-            <a href="#"><h1>订单详情</h1></a>
-            <a href="#"><h2>查看物流</h2></a>
-        </div>
-		<a href="#"><h1>删除订单</h1></a>
-    </div>
-        <!-----04------>
-    <div class="title05">
-    		<span>订单编号：233655790087</span>
-        	<h1>成交时间：2016-09-15</h1>
-        	<a href="product.html"><h2>店铺：潘多拉的鞋柜</h2></a>  
-        	<a href="#"><h3>联系商家</h3></a>
-    </div>
-    <div class="pic04">
-    	<img src="images/images92.jpg" alt="这是一张图片">
-        <div class="box01">
-        	<a href="product.html">加绒短靴女鞋冬季粗跟中跟百搭英伦风靴子</a>
-			<p>颜色：黑色 尺码：37</p>
-        </div>
-        <span>￥169.00</span>
-        <p>1</p>
-        <div class="box02">
-        	<h1>￥169.00</h1>
-            <p>包邮</p>
-        </div>
-        <div class="box03">
-            <a href="#"><h1>订单详情</h1></a>
-            <a href="#"><h2>查看物流</h2></a>
-        </div>
-		<a href="#"><h1>删除订单</h1></a>
-    </div>
+    
 <!---foot-------->
     <div class="footer01">
             <div class="footerBox">
-                <img src="images/logo05.jpg" alt="这是一张图片">
+                <img src="img/images/logojgj_03.png" alt="这是一张图片">
                 <div class="footerCon01">
                     <ul class="foot01">
                         <li><a href="#"><span>公司</span></a></li>

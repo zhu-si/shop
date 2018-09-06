@@ -28,4 +28,9 @@ public class product_serviceImpl implements product_service{
 		return pdao.getByType_id(id);
 	}
 
+	public List<product> getByType(SearchInfo info) {
+		return pdao.getByType(info);
+	}
+	
+
 }

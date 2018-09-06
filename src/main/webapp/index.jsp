@@ -14,8 +14,7 @@ $(function(){
 	if(${requestScope.tlist==null}){
 		location.href="index";
 	  }
-});
-			
+});	
 		</script>
 </head>
 <body>
@@ -25,11 +24,12 @@ $(function(){
 				<div class="header3-cont">
 					<ul>
 						<li class="l1">全部分类</li>
-						<div class="all" style="height:519px;width:192px" >
-							<dl>
+						<div class="all" style="height:415px;width:192px" >
+							<dl style="height:400px;width:160px;margin-left:30px">
 								<c:forEach items="${requestScope.tlist}" var="t">
+								<br>
 									<c:if test="${t.parentid==0}">
-										<a style="font-size: 18px; color: white;" href="">${t.name}</a>
+										<a style="font-size: 18px; color: white;" href="product_t?id=${t.id}">${t.name}</a>
 										<dd>
 									</c:if>
 									<c:forEach items="${requestScope.tlist}" var="tt">
@@ -37,10 +37,10 @@ $(function(){
 											<a href="product_type?id=${tt.id}" style="font-size: 14px">${tt.name}</a>
 										</c:if>
 									</c:forEach>
-									<c:if test="${t.parentid==0}"></dd><br></c:if>
+									<c:if test="${t.parentid==0}"></dd></c:if>
 								</c:forEach>
 							</dl>
-							<div class="more">
+							<div class="more" style="margin-top:-80px">
 								更多<em></em>
 							</div>
 						</div>
@@ -54,7 +54,7 @@ $(function(){
 				</div>
 			</div>
 		</div>
-		<div class="banner">
+		<div class="banner" >
 			<img src="img/banner.png" /> <img src="img/images/badjksa_02.png" />
 			<img src="img/images/badjksa_02.png" />
 			<ul>
@@ -82,7 +82,7 @@ $(function(){
 			</script>
 	</div>
 	<div class="box2">
-		<div class="banner-small" style="margin-top: 105px">
+		<div class="banner-small" style="margin-top:-20px">
 			<div class="every">
 				<p>
 					<img src="img/mr.png" />
@@ -153,7 +153,7 @@ $(function(){
 					href="fruit.html"><img src="img/pp2.png" /></a>
 
 				<c:forEach items="${requestScope.plist}" var="p" begin="5" end="7">
-					<a class="a2" href="product_info"> <em></em>
+					<a class="a2" href="product_info?id=${p.id}"> <em></em>
 						<p class="p1">
 							<img src="${p.pic}" width="150" height="143" />
 						</p>

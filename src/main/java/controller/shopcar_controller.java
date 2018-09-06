@@ -3,6 +3,7 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,24 +11,31 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import entity.car;
+import com.mysql.fabric.xmlrpc.base.Data;
+
+import entity.shopcar;
 import entity.orders;
 import entity.orders_details;
 import entity.orders_status;
+import entity.product;
 import entity.user;
+import searchInfo.SearchInfo;
 import service.address_service;
 import service.order_service;
+import service.orders_details_service;
 import service.product_service;
 import service.shopcar_service;
+import service.user_service;
 import utils.jsonInfo;
 
 @Controller
 public class shopcar_controller {
 	
+	@Autowired
+	address_service adservice;
 	@Autowired
 	order_service rservice;
 	@Autowired
@@ -35,30 +43,9 @@ public class shopcar_controller {
 	@Autowired
 	shopcar_service carservice;
 	@Autowired
-	address_service addservice;
-
-	//
-	@RequestMapping("aaaa")
-	public @ResponseBody jsonInfo aaaa(@RequestBody ArrayList<car> cars,orders o) {
-		for (int i = 0; i < cars.size(); i++) {
-//			int type_id = pservice.getById(cars.get(i).getProduct_id()).getType_id();
-//			int price = (int) pservice.getById(cars.get(i).getProduct_id()).getPrice();	//原单价
-//			int nowprice = (int) pservice.getById(cars.get(i).getProduct_id()).getNowprice();	//现单价
-//			int count = cars.get(i).getCount();		//购物车中商品数量
-//			int nowamount = cars.get(i).getCount()*nowprice;
-//			int amount = price*count;		//原总金额
-//			int product_id = cars.get(i).getProduct_id();
-//			int user_id = cars.get(i).getUser_id();
-//			//o.setAmount(amount);
-//			//o.setNowamount(nowamount);
-//			o.setAddress_id(0);
-//			o.setUser_id(user_id);
-//			o.setProduct_id(product_id);
-//			o.setType_id(type_id);
-//			carservice.delete(cars.get(i).getId());
-		}
-		return new jsonInfo(1, "");
-	}
+	orders_details_service odservice;
+	@Autowired
+	user_service uservice;
 
 	// 各页面页面跳转购物车
 	@RequestMapping("shopcar")
@@ -68,10 +55,10 @@ public class shopcar_controller {
 	
 	// 详情页点击添加购物车
 	@RequestMapping("info_shopcar")
-	public @ResponseBody String info_shopcar(int product_id, int count, int user_id) {
+	public @ResponseBody Integer info_shopcar(int product_id, int count, int user_id) {
 		carservice.insert(product_id, count, user_id);
-		String result = "success!";
-		return result;
+		
+		return 1;
 	}
 	
 	//点击改变数据库购物车count
@@ -82,98 +69,155 @@ public class shopcar_controller {
 		return result;
 	}
 	
-	//购物车跳转支付
+	//购物车跳转支付页
 	@RequestMapping("pay")
-	public void pay(String ids,ModelMap m,orders r,orders_details od,orders_status os,HttpSession session) {
+	public String pay(String ids,Double allamount,HttpSession session,ModelMap m) {
+		session.setAttribute("ids", ids);
 		user u=(user) session.getAttribute("user");
-		
-		//生成时间和订单号
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String a=String.valueOf(new Date().getTime());
-		r.setDate(df.format(new Date()));
-		r.setCode(a);
-		
+		if(u == null) {
+			return "login";
+		}else {
+			m.put("address",adservice.getByUser_id(u.getId()));
+			m.put("allamount", allamount);
+			m.put("name",adservice.getByUser_id(u.getId()).get(0).getName());
+			m.put("phone",adservice.getByUser_id(u.getId()).get(0).getTel());
+			List<shopcar> ptList=carservice.select(new SearchInfo("where s.id in ("+ids+")",false));
+			m.put("paylist",ptList);
+			return "pay";
+		}
+	}
+	
+	//订单支付
+	@RequestMapping("aaaa")
+	public @ResponseBody jsonInfo pay(String ids,orders r,int address_id,HttpSession session) {
+		orders_status os = new orders_status();
+		user u=(user) session.getAttribute("user");
+		r.setUser_id(u.getId());
+		Date d = new Date();
+		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(d);
+		String code = d.getTime()+""+u.getId();
+		double amount=0;
+		double nowamount=0;
 		
 		String[] idses = ids.split(",");
-		//ids = "4,5,6";
-		//[4,5,6]
 		ArrayList<Integer> idd = new ArrayList<Integer>();
 		for (String string : idses) {
 			idd.add(Integer.valueOf(string));
 		}
-		ArrayList<orders> list = new ArrayList<orders>();
-		double allamount=0;
-		double amount=0;
-		String email = "";
-		String tel = "";
-		for (int i = 0; i < idd.size(); i++) {
-			int id = idd.get(i);
-			int user_id = carservice.getById(id).getUser_id();
-			int product_id = carservice.getById(id).getProduct_id();
-			int count = carservice.getById(id).getCount();
-			double price = pservice.getById(product_id).getPrice();
-			double nowprice = pservice.getById(product_id).getNowprice();
-			double nowamount = (nowprice * count);
-			
-			list.addAll(carservice.payid(id));
-			double nowprice1=list.get(i).getNowprice();
-			double price1=list.get(i).getPrice();
-			email = list.get(i).getEmail();
-			tel = list.get(i).getTel();
-			int count1=list.get(i).getCount();
-			amount = amount+price1*count1;
-			allamount=allamount+nowprice1*count1;
-			r.setAmount(amount);
-			r.setNowamount(allamount);
+		for(int i=0;i<idd.size();i++) {
+			int id =idd.get(i);
+			shopcar car = new shopcar();
+			car = carservice.select(new SearchInfo("where s.id= "+id,false)).get(0);
+			double price = car.getPrice();
+			double nowprice = car.getNowprice();
+			double count = car.getCount();
+			nowamount=nowamount+nowprice*count;
+			amount=amount+price*count;
 		}
-		r.setAddress_id(1);
-		r.setUser_id(u.getId());
+		r.setDate(date);
+		r.setCode(code);
+		r.setAmount(amount);
+		r.setNowamount(nowamount);
 		rservice.insert(r);    //订单表
 		
-		m.put("address",addservice.getByUser_id(u.getId()));
-		m.put("tel",tel);
-		m.put("email",email);
-		m.put("allamount", allamount);
-		m.put("paylist",list);
+		int orders_id = rservice.select(new SearchInfo("where orders.id=(select MAX(id) from orders)",false)).get(0).getId();
+		List<shopcar> list = carservice.select(new SearchInfo("where s.id in ("+ids+")",false));
 		
-		//订单详情表
-		for (int i = 0; i < idd.size(); i++) {
-			int id = idd.get(i);
-			int product_id = carservice.getById(id).getProduct_id();
-			int count = carservice.getById(id).getCount();
-			double price = pservice.getById(product_id).getPrice();
-			double nowprice = pservice.getById(product_id).getNowprice();
-			int orders_id = rservice.code(a).getId();
-			od.setComments("111111");
-			od.setNowprice(nowprice);
-			od.setPrice(price);
-			od.setCount(count);
-			od.setProduct_id(product_id);
+		for(int i=0;i<list.size();i++) {
+			orders_details od = new orders_details();
+			amount=list.get(i).getPrice();
+			nowamount=list.get(i).getNowprice();
+			int product_id=list.get(i).getProduct_id();
+			int count=list.get(i).getCount();
 			od.setOrders_id(orders_id);
-			rservice.add(od);
+			od.setProduct_id(product_id);
+			od.setCount(count);
+			od.setPrice(amount);
+			od.setNowprice(nowamount);
+			od.setComments("无");
+			odservice.add(od);  //订单详情表
 		}
+		os.setOrders_id(orders_id);
+		os.setDate(date);
+		os.setDest_status(1);
+		os.setInfo(code);
+		os.setAmount(r.getNowamount());
+		os.setComments("无");
+		rservice.addStatus(os);		//订单状态表
 		
-		//订单状态表
+		//用户消费金额累加
+		user us = new user();
+		double uamount = u.getAmount();
+		double uaamount = 0;
+		uaamount = uamount + r.getNowamount();
+		us.setAmount(uaamount);
+		us.setId(u.getId());
+		uservice.updateamount(us);
+		carservice.deletes(ids);
+		return new jsonInfo(1,"购买成功！");
+	}
+}
+
+//String[] idses = ids.split(",");
+//ArrayList<Integer> idd = new ArrayList<Integer>();
+//for (String string : idses) {
+//	idd.add(Integer.valueOf(string));
+//}
+		
+//		String[] idses = ids.split(",");
+//		//ids = "4,5,6";
+//		//[4,5,6]
+//		ArrayList<Integer> idd = new ArrayList<Integer>();
+//		for (String string : idses) {
+//			idd.add(Integer.valueOf(string));
+//		}
+//		double allamount=0;
+//		double amount=0;
+//		String email = "";
+//		String tel = "";
+//
+//		int orders_id = rservice.code(a).getId();
+//		od.setOrders_id(orders_id);
 //		for (int i = 0; i < idd.size(); i++) {
 //			int id = idd.get(i);
 //			int product_id = carservice.getById(id).getProduct_id();
 //			int count = carservice.getById(id).getCount();
 //			double price = pservice.getById(product_id).getPrice();
 //			double nowprice = pservice.getById(product_id).getNowprice();
-			int orders_id = rservice.code(a).getId();
-			os.setOrders_id(orders_id);
-			os.setDate(df.format(new Date()));
-			os.setDest_status(6);
-			os.setInfo("已发货");
-			os.setNum(1);
-			os.setAmount(allamount);
-			os.setComments("11221111");
+//			
+//			double nowprice1=carservice.payid(id).get(i).getNowprice();
+//			double price1=carservice.payid(id).get(i).getPrice();
+//			email = carservice.payid(id).get(i).getEmail();
+//			tel = carservice.payid(id).get(i).getTel();
+//			int count1=carservice.payid(id).get(i).getCount();
+//			amount = amount+price1*count1;
+//			allamount=allamount+nowprice1*count1;
+//			
+//			r.setNowamount(allamount);
+//			od.setComments("111111");
+//			od.setNowprice(nowprice);
+//			od.setPrice(price);
+//			od.setCount(count);
+//			od.setProduct_id(product_id);
+//			rservice.add(od);		//订单详情表
 //		}
-		rservice.addStatus(os);
-		for (int i = 0; i < idd.size(); i++) {
-			int id = idd.get(i);
-			carservice.delete(id);
-		}
-		
-	}
-}
+//		r.setAddress_id(address_id);
+//		
+//		
+//		
+//		os.setOrders_id(orders_id);
+//		os.setDate(df.format(new Date()));
+//		os.setDest_status(6);
+//		os.setInfo("未发货");
+//		os.setNum(0);
+//		os.setAmount(allamount);
+//		os.setComments("11221111");
+//		rservice.addStatus(os);
+//		for (int i = 0; i < idd.size(); i++) {
+//			int id = idd.get(i);
+//			carservice.delete(id);
+//		}
+//		
+//		String result = "success!";
+//		return result;
+

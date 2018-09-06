@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,37 +18,48 @@
     
     </style>
     <script type="text/javascript">
-    
     function openaddress(){
-    	
     	
     }
     
-    
     function settlement() {
-    	
-    	var data = [];
-		 $(".payProduct").each(function() {
-				var row = {
-						
-				}
-				data.push(row); 
-		}); 
-		 
-		//提交
-		  $.ajax({
-			type : "POST",
-			url : "aaaa",
-			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
-			dataType : "json",
-			success : function(json) {
-				if (json.status > 0) {
-				}
-			}
-		});  
-	};
-
+    	var address_id = "${requestScope.address[0].id}";
+		var ids = "${sessionScope.ids}";
+	//提交
+    	 $.post("aaaa",{ids:ids,address_id:address_id},function(json) {
+    		if(json.status==1){
+    			alert(json.text);
+    			location.href="orders?id="+${sessionScope.id};
+    		}
+    			}); 
+    	} 
+    	    
+    		function orders(id){
+    			if(${sessionScope.user != null}){
+    				location.href="orders?id="+id;
+    			}else{
+    				alert("请先登录！");
+    				location.href="login.jsp"
+    			}
+    		}
+    		
+    		function login(id){
+    			if(${sessionScope.user != null}){
+    				alert("您已登录！");
+    			}else{
+    				location.href="login.jsp"
+    			}
+    		}
+    		
+    		function shopcar(id){
+    			if(${sessionScope.user != null}){
+    				location.href="shopcar?id="+id;
+    			}else{
+    				alert("请先登录！");
+    				location.href="login.jsp"
+    			}
+    		}
+	
     </script>
 </head>
 <body>
@@ -55,18 +68,7 @@
         <div class="topCon">
             <div class="topLeft">配送至：山东</div>
             <div class="topRight">
-                <a href="personalCenter.html">个人中心</a>&nbsp;|&nbsp;<a href="order.html">我的订单</a>&nbsp;|&nbsp;<a>我的收藏</a>&nbsp;|&nbsp;<a>客户服务</a>&nbsp;|&nbsp;<a>更多</a>
-            </div>
-        </div>
-    </div>
-    <div class="logoCon">
-        <div class="logoCon">
-            <img class="loginLogo" src="img/images/logojgj_03.png" style="width:250px"></img>
-            
-            <div class="logoRight">
-                <div class="searchBox">
-                    <input type="text" value="请输入搜索内容"><button>搜索</button>
-                </div>
+                <a>${sessionScope.name}</a>&nbsp;|&nbsp;<a onclick="orders(${sessionScope.id})">我的订单</a>&nbsp;|&nbsp;<a onclick="shopcar(${sessionScope.id})">我的购物车</a>&nbsp;|&nbsp;<a onclick="login(${sessionScope.id})">登录|注册</a>
             </div>
         </div>
     </div>
@@ -85,7 +87,7 @@
     </div>
     <div class="settlementInfoBox">
         
-        <table class="table" style="width:1000px;height:150px;margin-left:350px">
+        <table class="table" style="width:1000px;height:150px;margin-left:150px">
         	<tr>
         		<td>确认订单信息</td>
             	<td class="firstTitle">商品信息</td>
@@ -96,13 +98,13 @@
             	<td>优惠方式</td>
         	</tr>
         	<c:forEach items="${requestScope.paylist}" var="pay">
-            <tr class="payProduct">
+            <tr class="payProduct" sid="${pay.id}">
             	<td><img style="width: 90px; height: 90px;" src="${pay.pic}" /></td>
                 <td>${pay.fullname}</td>
-                <td>${pay.type_id}</td>
+                <td>${pay.name}</td>
                 <td><span style="text-decoration:line-through">￥${pay.price}</span><br><br>￥${pay.nowprice}</td>
                 <td class="count" count="${pay.count}">${pay.count}</td>
-                <td class="amount">￥${pay.count*pay.nowprice}</td>
+                <td class="amount">￥<fmt:formatNumber value="${pay.count*pay.nowprice}" pattern="#.##"/></td>
                 <td>${pay.activity}</td>
             </tr>
             </c:forEach>
@@ -120,12 +122,12 @@
     </div>
     <div class="checkoutBox">
         <ul class="checkoutInfo">
-            <li>合计：<span>￥${allamount}</span></li>
+            <li>合计：<span>￥<fmt:formatNumber value="${allamount}" pattern="#.##"/></span></li>
             <li>配送至：山东省 青岛市 城阳区 城阳街道 春阳路 盈园国际商务中心 812</li>
-            <li>收货人信息：${email}（${tel}）</li>
+            <li>收货人信息：${name}（${phone}）</li>
             <li><b>付款方式：</b><input type="checkbox"><b class="quickIcon"></b><b>快捷支付</b><input type="checkbox"><b class="weixinIcon"></b><b>微信支付</b></li>
         </ul>
-        <button  onclick="settlement();">结算</button>
+        <button onclick="settlement()">提交订单</button>
     </div>
 </div>
 <div class="footerCon">

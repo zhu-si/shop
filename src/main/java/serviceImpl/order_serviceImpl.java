@@ -10,6 +10,7 @@ import dao.order_dao;
 import entity.orders;
 import entity.orders_details;
 import entity.orders_status;
+import searchInfo.SearchInfo;
 import service.order_service;
 @Service
 public class order_serviceImpl implements order_service{
@@ -37,12 +38,15 @@ public class order_serviceImpl implements order_service{
 		return rdao.code(code);
 	}
 
-	public void add(orders_details od) {
-		rdao.add(od);
-	}
+	
 
 	public void addStatus(orders_status os) {
 		rdao.addStatus(os);
 	}
+
+	public List<orders> select(SearchInfo info) {
+		return rdao.select(info);
+	}
+
 	
 }

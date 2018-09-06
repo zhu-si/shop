@@ -12,4 +12,6 @@ public interface product_service {
 	public product getById(int id);
 	
 	public List<product> getByType_id(int id);
+	
+	public List<product> getByType(SearchInfo info);
 }

@@ -23,7 +23,10 @@
 		        },
 		        dataType:"text",
 		        success: function (json) {
-		        	alert(json);
+		        	if(json==1){
+		        		alert("添加成功！");
+		        	}
+		        	
 		        }
 		    });
 			/* alert(count); */
@@ -69,7 +72,7 @@
 				<div class="overflow">
 					<div id="preview" class="spec-preview">
 						<span class="jqzoom"><img width="521px" height="507px"
-							jqimg="img/gshaf.png" src="img/gshaf.png" /></span>
+							jqimg="img/gshaf.png" src="${requestScope.plist.piclist[1]}" /></span>
 					</div>
 				</div>
 				<!--缩图开始-->
@@ -309,29 +312,17 @@
 			</ul>
 			<div class="clear"></div>
 		</div>-->
-			<div class="down">
+			<div class="down" style="width:1000px">
 				<div class="one">
 					<ol>
-						<dt>
-							<a href="">购物指南</a>
-						</dt>
-						<dd>
-							<a href="">购物流程</a>
-						</dd>
-						<dd>
-							<a href="">支付方式</a>
-						</dd>
+						<dt><a href="">购物指南</a></dt>
+						<dd><a href="">购物流程</a></dd>
+						<dd><a href="">支付方式</a></dd>
 					</ol>
 					<ol>
-						<dt>
-							<a href="">购物指南</a>
-						</dt>
-						<dd>
-							<a href="">购物流程</a>
-						</dd>
-						<dd>
-							<a href="">支付方式</a>
-						</dd>
+						<dt><a href="">购物指南</a></dt>
+						<dd><a href="">购物流程</a></dd>
+						<dd><a href="">支付方式</a></dd>
 					</ol>
 					<ol>
 						<dt>
@@ -388,11 +379,11 @@
 					<span>消费者维权电话：12305</span>
 					<p>Copyright&nbsp;©&nbsp;2010-2020&nbsp;xianshenggou.com&nbsp;版权所有</p>
 				</div>
+			</div>	
 		</footer>
-
 	</div>
 </body>
 <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.jqzoom.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="js/jquery.jqzoom.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="js/base.js" type="text/javascript" charset="utf-8"></script>
 </html>

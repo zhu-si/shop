@@ -44,7 +44,7 @@ public class login_controller {
 		if(lservice.getEmail(u.getEmail()) == null) {
 			if(u.getPassword().equals(u.getPassword1())) {
 				lservice.insert(u);
-				return new jsonInfo(2, "注册成功！");
+				return new jsonInfo(2, "注册成功！请登录...");
 			}else {
 				return new jsonInfo(1,"密码不一致！");
 			}

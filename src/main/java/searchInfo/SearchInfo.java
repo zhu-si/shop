@@ -4,9 +4,10 @@ public class SearchInfo {
 	int max = 5;
 	String txt="";
 	static Integer pageno = 1;
-	
 
-	public SearchInfo(String string, boolean b) {
+	public SearchInfo(String where,boolean canpage) {
+		this.where=where;
+		setCanPage(canpage);
 		
 	}
 

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import entity.orders;
 import entity.shopcar;
+import searchInfo.SearchInfo;
 
 public interface shopcar_service {
 	
@@ -17,10 +18,13 @@ public interface shopcar_service {
 	
 	public void countUp(int id,int count);
 	
-	public void delete(int id);
+	public void deletes(String ids);
 	
 	public shopcar getById(int id);
 
 	public List<orders> payid(int id);
 	
+	public List<orders> priceAll(SearchInfo info);
+	
+	public List<shopcar> select(SearchInfo info);
 }

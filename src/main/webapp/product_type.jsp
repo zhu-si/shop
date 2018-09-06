@@ -68,8 +68,11 @@
 			   	  })
 			   </script>
 			   <!--商品图片-->
+			   <c:forEach items="${requestScope.typelist}" var="ptype" varStatus="status">
+			   
+			   <c:if test="${status.index % 5 == 0}">
 			   <ul>
-			   <c:forEach items="${requestScope.typelist}" var="ptype">
+			   </c:if>
 			   	<li>
 		    		<a class="a2" href="product_info?id=${ptype.id}">
 			   		<img src="${ptype.pic}" width="150" height="135"/>
@@ -80,9 +83,13 @@
 			   		</div>
 			   		</a>
 			   	</li>
-			   	</c:forEach>
-			   	
-			   </ul>
+			   	<c:if test="${status.index % 5 == 4}">
+			   	</ul>
+			   	</c:if>
+			   
+			   </c:forEach>
+			   
+			   
 			   <!--第二行-->
 			   <ul>
 			   	<li>

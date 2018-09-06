@@ -11,11 +11,13 @@ public interface user_service {
 	public void insert(user u);
 
 	public void update(user u);
+//
+//	public void delete(int id);
+//
+//	public void deleteall(int id);
 
-	public void delete(int id);
-
-	public void deleteall(int id);
-
-	public Object getId(int id);
+	public user getId(int id);
+	
+	public void updateamount(user us);
 	
 }
