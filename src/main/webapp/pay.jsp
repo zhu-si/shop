@@ -76,14 +76,14 @@
 <div class="settlementContentCon">
     <div class="addressBox">
         <div class="topTitle">
-            <div><h2>确认收货地址</h2></div>
+            <div><h2>确认订单</h2></div>
         </div>
-        <div class="addressInfo">
+        <%-- <div class="addressInfo">
         <c:forEach items="${requestScope.address}" var="address">
             <dl class="addressActive"><dt>${address.name}<b class="phoneNum">${address.tel}</b></dt><dd>${address.zone}${address.addr}</dd></dl>
             <dl class="addAddress"><a onclick="openaddress();">添加新的收货地址</a></dl>
         </c:forEach>    
-        </div>
+        </div> --%>
     </div>
     <div class="settlementInfoBox">
         

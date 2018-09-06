@@ -16,19 +16,17 @@
 		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
 		
-		function mysearch() {
-			$.ajax({
-				url:"product_type",
-				type:"post",
-				data:$("#s").serialize(),
-				success:function(){
-					
-				}
-			});
-		}
+		/* function mysearch() {
+			$.post({"pt" ,$('#s').serialize(),function(json) {
+	            		if(json.status==1){
+	            			alert();
+	            			
+	            		}
+	            });
+		} */
 		function login(id){
 			if(${sessionScope.user != null}){
-				alert("您已登录！");
+				alert('您已登录！');
 			}else{
 				location.href="login.jsp"
 			}

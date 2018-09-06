@@ -44,6 +44,10 @@ public class type_serviceImpl implements type_service{
 		return tdao.getByParentid(parentid);
 	}
 
+	public List<type> sear(String name) {
+		return tdao.sear(name);
+	}
+
 	
 
 

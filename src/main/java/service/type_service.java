@@ -21,5 +21,5 @@ public interface type_service {
 
 	public List<type> getByParentid(Integer parentid);
 
-
+	public List<type> sear(String name);
 }
