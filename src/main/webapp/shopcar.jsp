@@ -18,7 +18,6 @@ td {
 	text-align:;
 }
 </style>
-
 <script type="text/javascript">
 
 /*
@@ -67,8 +66,6 @@ function pay(id) {
 		location.href="pay?ids="+ids+"&allamount="+allamount;
 	}
 	
-	
-	
 }
 
 	//计算数量，金额
@@ -87,16 +84,23 @@ function pay(id) {
 		});
 		$(".s7").text("￥" + all.toFixed(2));
 		$(".s4").text("" + finalcount);
-		
 	}
-
-	//删除购物车商品
+	function del(id){
+		if(confirm("确认删除？")){
+			var target=$(event.target).parents(".down1");
+			$.post("del",{id:id},function(res){
+				if(res.status>0){
+					target.remove();
+					alljs();
+					alert(res.text);		
+				}
+			},"json");		
+		}
+	}
+	
+	
 	$(function() {
-		$(".del").on("click", function() {
-			$(event.target).parents(".down1").remove();
-			alljs();
-		});
-
+		
 		$(".chk").on("click", function() {
 			alljs();
 		});
@@ -189,9 +193,7 @@ function pay(id) {
 							<span class="n3">+</span></td>
 						<td class="l7">￥<fmt:formatNumber value="${(car.nowprice*car.count)}" pattern="#.##"/></td>
 						<td class="l8"><!-- <p>移入收藏夹</p> -->
-							<p class="del" style="cursor: pointer;">
-								<a href="delete?id=${car.id}">删除</a>
-							</p>
+							<p class="del" style="cursor: pointer;"><a onclick="del(${car.id})">删除</a></p>
 							<!-- <p>查找相似</p> --></td>
 				</c:forEach>
 				</tr>

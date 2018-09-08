@@ -1,11 +1,14 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import entity.orders;
 import entity.user;
 import service.user_service;
 import utils.jsonInfo;
@@ -31,10 +34,10 @@ public class user_controller {
 		return new jsonInfo(1, "");
 	} 
 	
-	@RequestMapping("update")
+	@RequestMapping("userUpdate")
 	protected @ResponseBody jsonInfo update(user u) {
 		uservice.update(u);
-		return new jsonInfo(1, "");
+		return new jsonInfo(1, "ÐÞ¸Ä³É¹¦£¡");
 	}
 	
 //	@RequestMapping("delete")
@@ -66,5 +69,4 @@ public class user_controller {
 		m.put("info", uservice.getId(id));
 		return add(m);
 	}
-	
 }

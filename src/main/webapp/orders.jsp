@@ -78,7 +78,7 @@ function login(id){
     <div class="title02">
     	<span>订单编号：${r.code}</span>
         <h1>成交时间：${r.date}</h1>
-        <!-- <button class="shouhuo" >确认收货</button> -->
+        <button class="shouhuo" >确认收货</button>
     </div>
     
     <c:forEach items="${requestScope.olist}" var="ord">
@@ -99,6 +99,7 @@ function login(id){
         </div>
 		<div class="box03">
             <a href="#"><h1>订单详情</h1></a>
+            <a href="#"><h1>退货</h1></a>
         </div>
     </div>
     

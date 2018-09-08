@@ -53,6 +53,10 @@ public class shopcar_serviceImpl implements shopcar_service{
 	public List<entity.shopcar> select(SearchInfo info) {
 		return cardao.select(info);
 	}
+
+	public void del(int id) {
+		cardao.del(id);
+	}
 	
 	
 	

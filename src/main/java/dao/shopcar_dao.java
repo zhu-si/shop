@@ -29,6 +29,9 @@ public interface shopcar_dao {
 	@Update("update shopcar set count=#{count} where id=#{id}")
 	public void countUp(@Param("id") int id,@Param("count")int count);
 	
+	@Delete("delete from shopcar where id=#{ids}")
+	public void del(int id);
+	
 	@Delete("delete from shopcar where id in (${ids})")
 	public void deletes(@Param(value="ids")String ids);
 	

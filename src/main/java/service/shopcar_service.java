@@ -18,6 +18,8 @@ public interface shopcar_service {
 	
 	public void countUp(int id,int count);
 	
+	public void del(int id);
+	
 	public void deletes(String ids);
 	
 	public shopcar getById(int id);

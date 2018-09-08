@@ -57,7 +57,6 @@ public class shopcar_controller {
 	@RequestMapping("info_shopcar")
 	public @ResponseBody Integer info_shopcar(int product_id, int count, int user_id) {
 		carservice.insert(product_id, count, user_id);
-		
 		return 1;
 	}
 	
@@ -98,7 +97,6 @@ public class shopcar_controller {
 		String code = d.getTime()+""+u.getId();
 		double amount=0;
 		double nowamount=0;
-		
 		String[] idses = ids.split(",");
 		ArrayList<Integer> idd = new ArrayList<Integer>();
 		for (String string : idses) {
@@ -119,10 +117,8 @@ public class shopcar_controller {
 		r.setAmount(amount);
 		r.setNowamount(nowamount);
 		rservice.insert(r);    //订单表
-		
 		int orders_id = rservice.select(new SearchInfo("where orders.id=(select MAX(id) from orders)",false)).get(0).getId();
-		List<shopcar> list = carservice.select(new SearchInfo("where s.id in ("+ids+")",false));
-		
+		List<shopcar> list = carservice.select(new SearchInfo("where s.id in ("+ids+")",false));		
 		for(int i=0;i<list.size();i++) {
 			orders_details od = new orders_details();
 			amount=list.get(i).getPrice();
@@ -144,7 +140,6 @@ public class shopcar_controller {
 		os.setAmount(r.getNowamount());
 		os.setComments("无");
 		rservice.addStatus(os);		//订单状态表
-		
 		//用户消费金额累加
 		user us = new user();
 		double uamount = u.getAmount();
@@ -156,7 +151,16 @@ public class shopcar_controller {
 		carservice.deletes(ids);
 		return new jsonInfo(1,"购买成功！");
 	}
+	
+	//购物车删除商品
+	@RequestMapping("del")
+	public @ResponseBody jsonInfo del(int id) {
+		carservice.del(id);
+		return new jsonInfo(1,"删除成功！");
+	}
+	
 }
+
 
 //String[] idses = ids.split(",");
 //ArrayList<Integer> idd = new ArrayList<Integer>();

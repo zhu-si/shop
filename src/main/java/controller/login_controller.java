@@ -26,8 +26,6 @@ public class login_controller {
 			if(user!=null) {
 				session.setMaxInactiveInterval(100000000);
 				session.setAttribute("user", user);
-				session.setAttribute("name", lservice.login(u).getEmail());
-				session.setAttribute("id", lservice.login(u).getId());
 				return "redirect:../index";
 			}else {
 				session.setAttribute("error", "ÓÃ»§ÃûÃÜÂë´íÎó£¡");

@@ -25,7 +25,7 @@ public interface order_dao {
 	@Insert("insert into orders(date,code,amount,nowamount,address_id,user_id,status,comments) values(#{date},#{code},#{amount},#{nowamount},#{address_id},#{user_id},#{status},#{comments})")
 	public void insert(orders r);
 	
-	@Select("select * from orders where user_id=#{id}")
+	@Select("select * from orders where user_id=#{id}  order by id desc")
 	public List<orders> getId(int id);
 	
 	

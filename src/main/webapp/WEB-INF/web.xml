@@ -43,7 +43,6 @@
         <url-pattern>/rcode/img</url-pattern>  
     </servlet-mapping>
 
-
 	<servlet>
 		<servlet-name>spring_mvcPos</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet

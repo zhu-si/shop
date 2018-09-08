@@ -12,6 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="css/footer.css" />
 		<link rel="stylesheet" type="text/css" href="css/fruit.css"/>
 		<link rel="stylesheet" type="text/css" href="css/shopping.css" />
+		<link rel="stylesheet" type="text/css" href="css/the member center.css"/>
 		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
@@ -49,6 +50,15 @@
 				location.href="login.jsp"
 			}
 		}
+		
+		function center(id){
+			if(${sessionScope.user != null}){
+				location.href="personalCenter.jsp";
+			}else{
+				alert("请先登录！");
+				location.href="login.jsp"
+			}
+		}
 		</script>
 		
 		
@@ -57,14 +67,14 @@
 	<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2">${sessionScope.name}</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2">${sessionScope.user.email}</a></span>
 					</div>
 					<div class="right">
 						<ul>
-							<li><a onclick="orders(${sessionScope.id})">我的订单<em></em></a></li>
-							<li><a onclick="shopcar(${sessionScope.id})">购物车<em></em></a></li>
-							<li><a onclick="login(${sessionScope.id})">登录|注册<em></em></a></li>
-							<!-- <li><a href="The member center.html">会员中心<em></em></a></li> -->
+							<li><a onclick="orders(${sessionScope.user.id})">我的订单<em></em></a></li>
+							<li><a onclick="shopcar(${sessionScope.user.id})">购物车<em></em></a></li>
+							<li><a onclick="login(${sessionScope.user.id})">登录|注册<em></em></a></li>
+							<li><a onclick="center(${sessionScope.user.id})">会员中心<em></em></a></li>
 							<!-- <li>客户服务<em></em></li> -->
 						</ul>
 						<div class="clear"></div>

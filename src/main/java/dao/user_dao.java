@@ -19,7 +19,7 @@ public interface user_dao {
 	@Insert("insert into user(email,password,tel,level,amount,status,comments) values(#{email},#{password},#{tel},#{level},#{amount},#{status},#{comments})")
 	public void insert(user u);
 
-	@Update("update user set email=#{email},password=#{password},tel=#{tel},level=#{level},amount=#{amount},status=#{status},comments=#{comments} where id=#{id}")
+	@Update("update user set email=#{email},tel=#{tel},comments=#{comments} where id=#{id}")
 	public void update(user u);
 	
 	@Update("update user set amount=#{amount} where id=#{id}")

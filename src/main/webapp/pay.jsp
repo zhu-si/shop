@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/public.css">
     <link rel="stylesheet" href="css/content.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"> </script>
+    <script type="text/javascript" src="layui/layui.all.js"> </script>
     <style type="text/css">
     
     td{
@@ -19,7 +20,12 @@
     </style>
     <script type="text/javascript">
     function openaddress(){
-    	
+    	alert(123);
+    	layer.open({
+    		type:2,
+    		content:'address.jsp',
+    		area:['350px','220px']
+    	});
     }
     
     function settlement() {
@@ -78,12 +84,12 @@
         <div class="topTitle">
             <div><h2>确认订单</h2></div>
         </div>
-        <%-- <div class="addressInfo">
+        <div class="addressInfo">
         <c:forEach items="${requestScope.address}" var="address">
-            <dl class="addressActive"><dt>${address.name}<b class="phoneNum">${address.tel}</b></dt><dd>${address.zone}${address.addr}</dd></dl>
-            <dl class="addAddress"><a onclick="openaddress();">添加新的收货地址</a></dl>
+            <dl class="addressActive" style="height:35px;padding-top:10px"><dt>${address.name}<b class="phoneNum">${address.tel}</b></dt><dd>${address.zone}${address.addr}</dd></dl>
+            <dl class="addAddress"><a href="javascript:;" onclick="openaddress();">添加新的收货地址</a></dl>
         </c:forEach>    
-        </div> --%>
+        </div>
     </div>
     <div class="settlementInfoBox">
         
