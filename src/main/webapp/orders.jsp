@@ -52,9 +52,9 @@ function login(id){
         	<div class="title">
             	<img class="images01" src="img/images/logo01.jpg" alt="这是一张图片">
                 <a href="index"><div>鲜生购首页</div></a>
-                <a ><p><span style="float:left;">${sessionScope.name}</span></p></a>
-                <a onclick="shopcar(${sessionScope.id})"><p>购物车</p></a>
-                <a onclick="login(${sessionScope.id})"><p>登录|注册</p></a>
+                <a ><p><span style="float:left;">${sessionScope.user.email}</span></p></a>
+                <a onclick="shopcar(${sessionScope.user.id})"><p>购物车</p></a>
+                <a onclick="login(${sessionScope.user.id})"><p>登录|注册</p></a>
                 <a ><p><img src="img/images/logo02.jpg">我的订单</p></a>
                 <a href="shopping.html"><p><img src="img/images/logo03.jpg">购物车</p></a>
             </div>

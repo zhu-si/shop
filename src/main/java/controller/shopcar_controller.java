@@ -78,8 +78,6 @@ public class shopcar_controller {
 		}else {
 			m.put("address",adservice.getByUser_id(u.getId()));
 			m.put("allamount", allamount);
-			m.put("name",adservice.getByUser_id(u.getId()).get(0).getName());
-			m.put("phone",adservice.getByUser_id(u.getId()).get(0).getTel());
 			List<shopcar> ptList=carservice.select(new SearchInfo("where s.id in ("+ids+")",false));
 			m.put("paylist",ptList);
 			return "pay";

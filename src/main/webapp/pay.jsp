@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/public.css">
     <link rel="stylesheet" href="css/content.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"> </script>
-    <script type="text/javascript" src="layui/layui.all.js"> </script>
+    <script type="text/javascript" src="layui/layui.js"> </script> 
+    <link rel="stylesheet" href="layui/css/layui.css">
     <style type="text/css">
     
     td{
@@ -18,63 +19,14 @@
     }
     
     </style>
-    <script type="text/javascript">
-    function openaddress(){
-    	alert(123);
-    	layer.open({
-    		type:2,
-    		content:'address.jsp',
-    		area:['350px','220px']
-    	});
-    }
-    
-    function settlement() {
-    	var address_id = "${requestScope.address[0].id}";
-		var ids = "${sessionScope.ids}";
-	//提交
-    	 $.post("aaaa",{ids:ids,address_id:address_id},function(json) {
-    		if(json.status==1){
-    			alert(json.text);
-    			location.href="orders?id="+${sessionScope.id};
-    		}
-    			}); 
-    	} 
-    	    
-    		function orders(id){
-    			if(${sessionScope.user != null}){
-    				location.href="orders?id="+id;
-    			}else{
-    				alert("请先登录！");
-    				location.href="login.jsp"
-    			}
-    		}
-    		
-    		function login(id){
-    			if(${sessionScope.user != null}){
-    				alert("您已登录！");
-    			}else{
-    				location.href="login.jsp"
-    			}
-    		}
-    		
-    		function shopcar(id){
-    			if(${sessionScope.user != null}){
-    				location.href="shopcar?id="+id;
-    			}else{
-    				alert("请先登录！");
-    				location.href="login.jsp"
-    			}
-    		}
-	
-    </script>
+   
 </head>
 <body>
 <div class="headerCon">
     <div class="headTop">
         <div class="topCon">
-            <div class="topLeft">配送至：山东</div>
             <div class="topRight">
-                <a>${sessionScope.name}</a>&nbsp;|&nbsp;<a onclick="orders(${sessionScope.id})">我的订单</a>&nbsp;|&nbsp;<a onclick="shopcar(${sessionScope.id})">我的购物车</a>&nbsp;|&nbsp;<a onclick="login(${sessionScope.id})">登录|注册</a>
+                <a>${sessionScope.user.email}</a>&nbsp;|&nbsp;<a onclick="orders(${sessionScope.user.id})">我的订单</a>&nbsp;|&nbsp;<a onclick="shopcar(${sessionScope.user.id})">我的购物车</a>&nbsp;|&nbsp;<a onclick="login(${sessionScope.user.id})">登录|注册</a>
             </div>
         </div>
     </div>
@@ -86,9 +38,14 @@
         </div>
         <div class="addressInfo">
         <c:forEach items="${requestScope.address}" var="address">
-            <dl class="addressActive" style="height:35px;padding-top:10px"><dt>${address.name}<b class="phoneNum">${address.tel}</b></dt><dd>${address.zone}${address.addr}</dd></dl>
-            <dl class="addAddress"><a href="javascript:;" onclick="openaddress();">添加新的收货地址</a></dl>
-        </c:forEach>    
+            <dl class="addressActive" style="height:35px;padding-top:10px" myid="${address.id}">
+            	<dt>${address.name}<b class="phoneNum">${address.tel}</b></dt>
+            	<dd>${address.zone}${address.addr}</dd>
+            	<input type="radio" name="addr" onclick="addr(event)" style="float:right;margin-right:10px;margin-top:-30px">
+            </dl>
+        </c:forEach> 
+		<dl class="addAddress"><a href="javascript:;" onclick="openaddress()">添加新的收货地址</a></dl>
+          
         </div>
     </div>
     <div class="settlementInfoBox">
@@ -129,8 +86,8 @@
     <div class="checkoutBox">
         <ul class="checkoutInfo">
             <li>合计：<span>￥<fmt:formatNumber value="${allamount}" pattern="#.##"/></span></li>
-            <li>配送至：山东省 青岛市 城阳区 城阳街道 春阳路 盈园国际商务中心 812</li>
-            <li>收货人信息：${name}（${phone}）</li>
+            <li>配送至：${requestScope.address[0].zone}${requestScope.address[0].addr}</li>
+            <li>收货人信息：${requestScope.address[0].name}（${requestScope.address[0].tel}）</li>
             <li><b>付款方式：</b><input type="checkbox"><b class="quickIcon"></b><b>快捷支付</b><input type="checkbox"><b class="weixinIcon"></b><b>微信支付</b></li>
         </ul>
         <button onclick="settlement()">提交订单</button>
@@ -141,4 +98,64 @@
     <p>网络文化经营许可证：浙网文[2013]0268-000号|增值电信业务经营许可证：京B2-20081001|信息网络传播视听节目许可证：1109364号|互联网违法和不良信息举报电话:400-800-8000</p>
 </div>
 </body>
+ <script type="text/javascript">
+    
+    
+    function openaddress(){
+    	layui.use('layer', function(){ 
+    	layer.open({
+    		title: '添加地址',
+    		type:2,
+    		content:'address.jsp',
+    		area:['350px','420px']
+    	});
+    	});
+    } ;
+    
+    var address_id ="";
+	
+	function addr(event){
+		address_id = $(event.target).parent(".addressActive").attr("myid");
+	}
+    
+    function settlement() {
+    	//var address_id = "${requestScope.address[0].id}";
+		var ids = "${sessionScope.ids}";
+	//提交
+    	 $.post("aaaa",{ids:ids,address_id:address_id},function(json) {
+    		if(json.status==1){ 
+    			alert(json.text);
+    			location.href="orders?id="+${sessionScope.user.id};
+    		}
+    			}); 
+    	} ;
+    	    
+    	function orders(id){
+			if(${sessionScope.user != null}){
+				location.href="orders?id="+id;
+			}else{
+				alert("请先登录！");
+				location.href="login.jsp"
+			}
+		};
+    		
+    		function login(id){
+    			if(${sessionScope.user != null}){
+    				alert("您已登录！");
+    			}else{
+    				location.href="login.jsp"
+    			}
+    		};
+    		
+    		function shopcar(id){
+    			if(${sessionScope.user != null}){
+    				location.href="shopcar?id="+id;
+    			}else{
+    				alert("请先登录！");
+    				location.href="login.jsp"
+    			}
+    		};
+    		
+    		
+    </script>
 </html>

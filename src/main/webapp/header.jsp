@@ -112,7 +112,7 @@
 						</div>
 					</div>
 					<div class="gouwuche" style="margin-top:10px">
-						<a onclick="shopcar(${sessionScope.id})"><em style=""></em></a>
+						<a onclick="shopcar(${sessionScope.user.id})"><em style=""></em></a>
 					</div>
 				</div>
 				<div class="clear"></div>
